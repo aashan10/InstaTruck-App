@@ -2,7 +2,7 @@ import {Component} from 'react';
 import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ImageSlider from 'react-native-image-slider';
-import {Button} from 'native-base';
+import {Button, Badge} from 'native-base';
 import { Actions, Router, Scene } from 'react-native-router-flux';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 // const goToSignInPage =() => {
@@ -23,7 +23,7 @@ class FirstScreen extends Component
                         ]}/>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button  rounded info  onPress={() => this.props.navigation.navigate('signIn')}>
+                    <Button   info  onPress={() => this.props.navigation.navigate('signIn')}>
                         <Text>skip</Text>
                     </Button>
                 </View>

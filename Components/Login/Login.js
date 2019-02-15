@@ -6,15 +6,7 @@ import {Container} from 'native-base';
 const signInComponent = () => {
     const navigationOptions = {header: null};
     return (
-        <Container>
-             <View style={styles.LoginContainer}>
-                 <Image style={styles.logo}resizeMode='contain'source={require('../images/logo.png')}  />
-                 <Text style={styles.name}>InstaTruck</Text>
-            </View>
-            <View style={styles.formContainer}>
-                <LoginDetails />
-             </View>
-        </Container>
+        <LoginDetails />
         
         // {/* <View style={styles.LoginContainer}>
         // <Image style={styles.logo}resizeMode='contain'source={require('../images/logo.png')}  />

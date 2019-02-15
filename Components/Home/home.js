@@ -1,9 +1,10 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
-import { Container, Header, Left, Body, Icon, Title, Button } from 'native-base';
+import {View, Text, StyleSheet, Platform, Switch} from 'react-native';
+import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right } from 'native-base';
 import {createDrawerNavigator, createAppContainer} from 'react-navigation';
 import About from '../About';
-import Home1 from '../Home';
+import {Swiper} from 'react-native-swiper';
+import ImageSlider from 'react-native-image-slider';
 class HomeDetails extends Component
 {
     static navigationOptions = "Home"
@@ -13,18 +14,41 @@ class HomeDetails extends Component
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress={()=> this.props.nagivation.openDrawer()}>
+                        <Button transparent onPress= { () => this.props.navigation.openDrawer()}>
                             <Icon name="menu"/>
                         </Button>
-                    </Left>
+                    </Left> 
+                    <Body>
+                        <Title>
+                            Choose A vehicle
+                        </Title>
+                    </Body>
                 </Header>
+               <ImageSlider style={{flex:1}} autoPlayWithInterval={2000} images={[
+                    require('../images/img1.jpg'),
+                    'http://placeimg.com/640/480/any',
+                    'http://placeimg.com/640/480/any'
+                ]}/>
+                <Content>
+                   <View style={{backgroundColor:'#34495e', padding:10}}>
+                        <Text style={{color: '#fff', fontSize: 18}}>Book</Text>  
+                        <Switch></Switch> 
+                   </View>
+                </Content>
+                <Footer style={{backgroundColor:'#fff'}}>
+                    <Right>
+                        <Button transparent danger >
+                            <Text style={{fontSize: 18, color: 'red'}}>Next</Text>
+                        </Button>
+                    </Right>
+                </Footer>
             </Container>
         );
     }
 }
 const nav = createDrawerNavigator({
     Home: {
-        screen: Home1
+        screen: HomeDetails
     },
     About : {
         screen: About
