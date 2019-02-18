@@ -1,20 +1,26 @@
 import React, {Component} from 'react';
 import {View, Image,Text,StyleSheet} from 'react-native';
 import LoginDetails from './LoginDetails';
-import {Container} from 'native-base';
+import {Container, Header, Body, Title, Content, Button} from 'native-base';
 
 const signInComponent = () => {
     const navigationOptions = {header: null};
     return (
-        <LoginDetails />
-        
-        // {/* <View style={styles.LoginContainer}>
-        // <Image style={styles.logo}resizeMode='contain'source={require('../images/logo.png')}  />
-        //     <Text style={styles.name}>InstaTruck</Text>
-        // </View>
-        // <View style={styles.formContainer}>
-        //     <LoginDetails />
-        // </View> */}
+        <Container>
+        <Header>
+            <Body>
+                <Title>
+                    Login
+                </Title>
+            </Body>
+        </Header>
+            <LoginDetails />
+            <Content>
+            <Button  block style={{margin:10}} onPress={() => this.navigation.navigate('Home')}>
+                <Text style={{color: '#fff', fontSize:20}}>Login</Text>
+            </Button>
+            </Content>
+        </Container>
     );
 }
 

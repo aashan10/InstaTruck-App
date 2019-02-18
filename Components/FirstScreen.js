@@ -3,11 +3,6 @@ import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import ImageSlider from 'react-native-image-slider';
 import {Button, Badge} from 'native-base';
-import { Actions, Router, Scene } from 'react-native-router-flux';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
-// const goToSignInPage =() => {
-//     Actions.signIn();
-// }
 class FirstScreen extends Component
 {
     static navigationOptions = { title:"Welcome", header: null };
@@ -42,7 +37,6 @@ class FirstScreen extends Component
 const styles = StyleSheet.create({
     slide:{
         flex:6,
-        margin: 10,
         marginBottom: 15
     },
     msgContainer:{
