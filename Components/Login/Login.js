@@ -1,27 +1,24 @@
 import React, {Component} from 'react';
 import {View, Image,Text,StyleSheet} from 'react-native';
 import LoginDetails from './LoginDetails';
+import {withNavigation} from 'react-navigation';
 import {Container, Header, Body, Title, Content, Button} from 'native-base';
 
 const signInComponent = () => {
     const navigationOptions = {header: null};
-    return (
-        <Container>
-        <Header>
-            <Body>
-                <Title>
-                    Login
-                </Title>
-            </Body>
-        </Header>
-            <LoginDetails />
-            <Content>
-            <Button  block style={{margin:10}} onPress={() => this.navigation.navigate('Home')}>
-                <Text style={{color: '#fff', fontSize:20}}>Login</Text>
-            </Button>
-            </Content>
-        </Container>
-    );
+            return (
+                <Container>
+                <Header>
+                    <Body>
+                        <Title>
+                            Login
+                        </Title>
+                    </Body>
+                </Header>
+                    <LoginDetails />
+                    
+                </Container>
+            );     
 }
 
 const styles = StyleSheet.create({
@@ -45,4 +42,4 @@ const styles = StyleSheet.create({
         position: 'absolute'
     }
 })
-export default signInComponent;
+export default withNavigation(signInComponent);

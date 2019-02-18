@@ -1,8 +1,30 @@
 import React,  {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import Login from './Login';
+import {withNavigation} from 'react-navigation';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Thumbnail } from 'native-base';
 class LoginDetails extends Component
 {
+    constructor(props)
+    {
+        super(props)
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+     getUserData = () => {
+        let username = this.state.username;
+        let password = this.state.password;
+        if(username === '' && password === '')
+        {
+            alert('Please Enter Your Username and Password');
+        }
+        else{
+            this.props.navigation.navigate('Home');
+        }
+    }
     render()
     {
         return(
@@ -29,6 +51,9 @@ class LoginDetails extends Component
                         </Item>
                     </Form>
                 </View>
+                <Button  block style={{margin:10}} onPress={this.getUserData}>
+                        <Text style={{color: '#fff', fontSize:20}}>Login</Text>
+                    </Button>
                 </Content>
         );    
     }
@@ -47,4 +72,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginDetails;
+export default withNavigation(LoginDetails);
