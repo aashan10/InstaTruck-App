@@ -1,7 +1,6 @@
-import {createDrawerNavigator, createAppContainer, createStackNavigator} from 'react-navigation';
+import {createDrawerNavigator, createAppContainer, withNavigation, createStackNavigator} from 'react-navigation';
 import About from '../About';
 import HomeDetails from '../Home/HomeDetails';
-
 const nav = createDrawerNavigator({
     Home: {
         screen: HomeDetails
@@ -16,4 +15,4 @@ const nav = createDrawerNavigator({
     drawerWidth: 200,
 });
 export const Home = createAppContainer(nav);
-export default Home;
+export default withNavigation(Home);

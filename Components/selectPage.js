@@ -14,7 +14,7 @@ class SelectPage extends Component
         let pickUpLoaction = this.state.pickUp;
         let dropOffLocation = this.state.dropOff;
       }
-       places = ['kalanki','kalimati','balkhu','bhaktapur','patan','Durbarmarg'];
+       
     render()
     {
         return (

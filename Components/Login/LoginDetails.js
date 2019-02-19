@@ -1,16 +1,17 @@
 import React,  {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Login from './Login';
 import {withNavigation} from 'react-navigation';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Thumbnail } from 'native-base';
 class LoginDetails extends Component
 {
+    static navigationOptions = {header: null};
     constructor(props)
     {
         super(props)
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         }
     }
 
@@ -21,7 +22,7 @@ class LoginDetails extends Component
         {
             alert('Please Enter Your Username and Password');
         }
-        else{
+        else{    
             this.props.navigation.navigate('Home');
         }
     }

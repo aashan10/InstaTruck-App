@@ -12,27 +12,30 @@ const AppStack =  createStackNavigator({
     }
 );
 const AuthStack = createStackNavigator({
+    firstScreen : FirstScreen,
     signIn: signInComponent
-    });
+    },{
+        initialRouteName: 'firstScreen'
+    }
+    );
 
-const AppContainer = createAppContainer(createSwitchNavigator(
+const AppContainer = createAppContainer(
+    createSwitchNavigator(
     {
         firstScreen : FirstScreen,
         signIn : signInComponent,
-        Home : Home,
-        PlaceSelect : SelectPage
+        Home: Home,
+        PlaceSelect: SelectPage
     },
     {
-        initialRouteName : 'firstScreen'
-    }
-));
+        initialRouteName : 'Home'
+    })
+);
 export default class App extends Component
 {
     render() {
-        return (
-                    
+        return (           
         <AppContainer />  
-        
            
         );
     }

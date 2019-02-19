@@ -17,13 +17,8 @@ class FirstScreen extends Component
                             require('./images/img2.jpg'),
                         ]}/>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button   info  onPress={() => this.props.navigation.navigate('signIn')}>
-                        <Text>skip</Text>
-                    </Button>
-                </View>
                 <View>
-                    <Button full success onPress={() => this.props.navigation.navigate('signIn')}>
+                    <Button full  onPress={() => this.props.navigation.navigate('signIn')}>
                         <Text style={{color:'#fff'}}>Login</Text>
                     </Button>
                 </View>
@@ -37,7 +32,7 @@ class FirstScreen extends Component
 const styles = StyleSheet.create({
     slide:{
         flex:6,
-        marginBottom: 15
+        // marginBottom: 15
     },
     msgContainer:{
         margin:10,

@@ -14,6 +14,7 @@
     "react-native": "0.58.4",
     "react-native-drawer": "^2.5.1",
     "react-native-dropdown-autocomplete": "^1.0.10",
+    "react-native-firebase": "^5.2.2",
     "react-native-gesture-handler": "^1.0.15",
     "react-native-image-slider": "^2.0.3",
     "react-native-material-ui": "^1.30.1",

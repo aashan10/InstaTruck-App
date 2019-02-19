@@ -1,32 +1,64 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet, Platform, Switch} from 'react-native';
+import {View, Text, StyleSheet, Platform, Switch, TimePickerAndroid} from 'react-native';
 import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker } from 'native-base';
-import Home from '../Drawer/Home';
+import {withNavigation} from 'react-navigation';
 import ImageSlider from 'react-native-image-slider';
 class HomeDetails extends Component
-{
-    state = {
-        trueSwitchIsOn: true,
-        falseSwitchIsOn: false,
-        garyo: false
-      };
+{   
+    constructor(props)
+    {
+        super(props)
+        this.state = {
+            trueSwitchIsOn: true,
+            falseSwitchIsOn: false,
+            garyo: false,
+            laterSwitch:false,
+            timePicker:false,
+            dateTimeSelected:false,
+            choosenDate: new Date()
+          };
+    }
+  
     static navigationOptions = "Home"
     kamGar = (value) => {
-         this.setState({
-             falseSwitchIsOn: value,
-             garyo: true
-        });
-        
+        if(!this.state.laterSwitch){
+            this.setState({
+                 falseSwitchIsOn: value,
+                 garyo: true,
+                 laterSwitch:true
+            });
+            return;
+        }
+        if(this.state.laterSwitch!=false){
+            this.setState({
+                falseSwitchIsOn:false,
+                garyo:false,
+                laterSwitch:false
+            });
+        }
+               
+    }
+    sateDate = (newDate) => {
+        this.setState({choosenDate: newDate, timePicker:true})
     }
     render()
     {
-        const DatePickers =  <DatePicker
-        defaultDate={new Date(2019, 4, 4)}
+        const DatePickers =  <View><Text style={{fontSize:25,fontWeight:'bold'}}>Please Select Date And Time</Text><DatePicker
+        defaultDate={new Date(2019, 2, 19)}
         minimumDate={new Date(2019, 1, 1)}
-        maximumDate={new Date(2019  , 12, 31)}
+        maximumDate={new Date(2029  , 12, 31)}
         locale={"en"}
-        />
-        const message = <Text>Hello World!!</Text>
+        onDateChange={this.sateDate}
+        /></View>
+        const message = <Text></Text>
+        // const {Actions, hours,minute} =  TimePickerAndroid.open({
+        //     hour:13,
+        //     minute:27,
+        //     is24Hour:false
+        // });
+        const nextBtn = <Button transparent danger onPress={() => this.props.navigation.navigate('PlaceSelect')} >
+        <Text style={{fontSize: 18, color: 'red', marginRight:15}}>Next</Text>
+    </Button>
         return(
             <Container>
                 <Header>
@@ -62,22 +94,20 @@ class HomeDetails extends Component
                             </View>
                         </Right>    
                    </View>
-                   <View>
-                   {this.state.garyo ? DatePickers : message }
-                   </View>
+                   {this.state.garyo===true ? DatePickers : message }
+                   {/* {this.state.timePicker === true ? Actions: message} */}
                 </Content>
                 <Footer style={{backgroundColor:'#ecf0f1'}}>
                     <Right>
-                        <Button transparent danger onPress={() => this.props.navigation.navigate('PlaceSelect')} >
-                            <Text style={{fontSize: 18, color: 'red', marginRight:15}}>Next</Text>
-                        </Button>
+                    {!this.state.laterSwitch ? nextBtn : message}
+                    {this.state.laterSwitch && this.state.dateTimeSelected ? nextBtn : message}
                     </Right>
                 </Footer>
             </Container>
         );
     }
 }
-export default HomeDetails;
+export default withNavigation(HomeDetails);
 // const nav = createDrawerNavigator({
 //     Home: {
 //         screen: HomeDetails
