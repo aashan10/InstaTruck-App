@@ -15,6 +15,5 @@ const nav = createDrawerNavigator({
     drawerBackgroundColor: '#fff',
     drawerWidth: 200,
 });
-const navigationOptions = {header: null};
-export const Home = createAppContainer(nav);
-export default withNavigation(Home, navigationOptions);
+ const Home = createAppContainer(nav);
+export default withNavigation(Home);

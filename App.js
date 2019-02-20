@@ -7,16 +7,26 @@ import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'r
 import Home from './Components/Drawer/Home';
 import LoginDetails from './Components/Login/LoginDetails';
 import HomeDetails from './Components/Home/HomeDetails';
+import LocationSummary from './Components/Summary';
 
 const AppStack =  createStackNavigator({
-    Home : HomeDetails,
-    PlaceSelect : SelectPage
+    Home : {
+        screen: Home,
+        navigationOptions: {
+            header: null
+        }
+    },
+    PlaceSelect : SelectPage,
+    summary: LocationSummary
     }
 );
 const AuthStack = createStackNavigator({
-    signIn: signInComponent
-    }
-    );
+    signIn: LoginDetails
+    
+
+});
+
+
 let FirstTimeLunch = true;
 const AppContainer = createAppContainer(
     createSwitchNavigator(

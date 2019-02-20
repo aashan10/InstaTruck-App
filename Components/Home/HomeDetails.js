@@ -1,8 +1,9 @@
 import React ,{Component} from 'react';
 import {View, Text, StyleSheet, Platform, Switch, TimePickerAndroid} from 'react-native';
 import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker } from 'native-base';
-import {withNavigation} from 'react-navigation';
+import {withNavigation, createDrawerNavigator,createAppContainer} from 'react-navigation';
 import ImageSlider from 'react-native-image-slider';
+import Logout from '../logout';
 class HomeDetails extends Component
 {   
     constructor(props)
@@ -106,4 +107,4 @@ class HomeDetails extends Component
         );
     }
 }
-export default withNavigation(HomeDetails);
+export default HomeDetails;

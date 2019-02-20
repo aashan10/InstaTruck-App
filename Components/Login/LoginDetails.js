@@ -27,9 +27,17 @@ class LoginDetails extends Component
             this.props.navigation.navigate('App');
         }
     }
+    static navigationOptions = {
+        title: 'Login',
+        headerStyle: {
+            backgroundColor: '#3f51b5',
+          },
+          headerTintColor: '#fff',
+      };
     render()
     {
         return(
+            <Container>
                 <Content>
                 <View style={styles.logo}>
                 <Thumbnail large source= {require('../images/logo.png')} />
@@ -57,6 +65,7 @@ class LoginDetails extends Component
                         <Text style={{color: '#fff', fontSize:20}}>Login</Text>
                     </Button>
                 </Content>
+                </Container>
         );    
     }
 }

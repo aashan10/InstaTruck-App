@@ -8,13 +8,6 @@ const signInComponent = () => {
      navigationOptions = { title:"Welcome", header: null };
             return (
                 <Container>
-                {/* <Header>
-                    <Body>
-                        <Title>
-                            Login
-                        </Title>
-                    </Body>
-                </Header> */}
                     <LoginDetails />
                     
                 </Container>

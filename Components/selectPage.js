@@ -1,30 +1,37 @@
 import React, {Component} from 'react';
 import {Button, Container, Header, Left, Content, Title, Form, Picker, Body, Icon, Right, Footer } from  'native-base';
-import {View, Text} from 'react-native';
+import {View, Text, ListView, TextInput, StyleSheet,TouchableHighlight} from 'react-native';
 const places = [
-    {text: 'Canada'},
-    {text: 'Japan'},
-    {text: 'Sudan'},
-    {text: 'Combodia'},
-    {text: 'pakistan'},
-    {text: 'Dubai'}
+    {country: 'Canada'},
+    {country: 'Japan'},
+    {country: 'Sudan'},
+    {country: 'Combodia'},
+    {country: 'pakistan'},
+    {country: 'Dubai'},
+    {country: 'Nepal'}
 ];
-const onSelect = (suggestion) => {
-    console.log(suggestion) // the pressed suggestion
-  }
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class SelectPage extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
           pickUp: undefined,
-          dropOff : undefined
+          dropOff : undefined,
+        };
+        this.state = {
+            searchedAdresses: [],
+            searchedAdresses1: []
         };
       }
      
       doWork = () => {
-        let pickUpLoaction = this.state.pickUp;
-        let dropOffLocation = this.state.dropOff;
+        let pickUpLoaction = this.state.searchedAdresses;
+        let dropOffLocation = this.state.searchedAdresses1;
+        this.props.navigation.navigate('summary',{
+            pickup: pickUpLoaction,
+            dropOff: dropOffLocation
+        });
       }
       static navigationOptions = {
         title: 'Select Location',
@@ -32,6 +39,30 @@ class SelectPage extends Component
             backgroundColor: '#3f51b5',
           },
           headerTintColor: '#fff',
+      };
+      searchedAdresses = (searchedText) => {
+        let searchedAdresses = places.filter(function(adress) {
+          return adress.country.toLowerCase().indexOf(searchedText.toLowerCase()) > -1;
+        });
+        // alert(JSON.stringify(searchedAdresses));
+        this.setState({searchedAdresses: searchedAdresses});
+      };
+      searchedAdresses1 = (searchedText) => {
+        let searchedAdresses = places.filter(function(adress) {
+          return adress.country.toLowerCase().indexOf(searchedText.toLowerCase()) > -1;
+        });
+        // alert(JSON.stringify(searchedAdresses));
+        this.setState({searchedAdresses1: searchedAdresses});
+      };
+    
+        renderAdress = (adress) => {
+        return (
+            
+          <View style={{justifyContent:'center', alignItems:'center'}}>
+            <Text style={{fontWeight:'bold',fontSize:15}}>{adress.street} {adress.city} {adress.country}</Text>
+          </View>
+         
+        );
       };
     render()
     {
@@ -46,47 +77,32 @@ class SelectPage extends Component
                     </View>
                     <View style={{borderBottomColor: 'black',borderBottomWidth: 1,}} />
                     <View style={{flex:1, flexDirection: 'row', flexWrap: 'wrap', margin:10}}>
-                        <Form>
-                            <Picker
-                             mode="dropdown"
-                             iosIcon={<Icon name="arrow-down" />}
-                             selectedValue={this.state.pickUp} 
-                             placeholderIconColor="#007aff"
-                             onValueChange={(text) => this.setState({pickUp:text})}
-                             style={{width: 150}}
-                             >
-                             
-                                    <Picker.Item label="Kalanki" value="Kalanki" />
-                                    <Picker.Item label="Kalimati" value="kalimati" />
-                                    <Picker.Item label="Bhaktapur" value="Bhaktapur" />
-                                    <Picker.Item label="Lalitpur" value="Lalitpur" />
-                                    <Picker.Item label="DurbarMarg" value="DurbarMarg" />
-                             </Picker>
-                        </Form>
-                        <Right>
-                            <Form>
-                                <Picker
-                                mode="dialog"
-                                iosIcon={<Icon name="arrow-down" />}
-                                selected1   selectedValue={this.state.dropOff} 
-                                placeholderIconColor="#007aff"
-                                onValueChange={(text) => this.setState({dropOff:text})}
-                                //  onValueChange={this.onValueChange1.bind(this)}
-                                style={{width: 150}}
-                                >
-                                    <Picker.Item label="Kalanki" value="Kalanki" />
-                                    <Picker.Item label="Kalimati" value="kalimati" />
-                                    <Picker.Item label="Bhaktapur" value="Bhaktapur" />
-                                    <Picker.Item label="Lalitpur" value="Lalitpur" />
-                                    <Picker.Item label="DurbarMarg" value="DurbarMarg" />
-                                </Picker>
-                            </Form>
-                        </Right>
+                      <View style={{flex:0.5}}>
+                            <TextInput 
+                                style={styles.textinput}
+                                onChangeText={this.searchedAdresses}
+                                placeholder="Type your adress here" />
+                            <ListView
+                            dataSource={ds.cloneWithRows(this.state.searchedAdresses)}
+                            renderRow={this.renderAdress} />
+                      </View>
+                      <Right>
+                      <View></View>
+                      <View>
+                            <TextInput 
+                                style={styles.textinput}
+                                onChangeText={this.searchedAdresses1}
+                                placeholder="Type your adress here" />
+                            <ListView
+                            dataSource={ds.cloneWithRows(this.state.searchedAdresses)}
+                            renderRow={this.renderAdress} />
+                      </View>
+                      </Right>
                     </View>
                 </Content>
                 <Footer>
                     <Button transparent danger style={{margin:10}} onPress={this.doWork} >
-                        <Text>Next </Text> 
+                        <Text style={{color:'#fff', fontSize:20}}>Next </Text> 
                     </Button>
                 </Footer>
             </Container>    
@@ -94,4 +110,18 @@ class SelectPage extends Component
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#FFFFFF',
+    },
+    textinput: {
+      marginTop: 30,
+      backgroundColor: '#DDDDDD',
+      height: 40,
+      width: 150,
+    }
+  });
 export default SelectPage;
