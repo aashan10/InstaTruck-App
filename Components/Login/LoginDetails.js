@@ -1,10 +1,10 @@
 import React,  {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet,AsyncStorage} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Thumbnail } from 'native-base';
 class LoginDetails extends Component
 {
-    static navigationOptions = {header: null};
+  
     constructor(props)
     {
         super(props)
@@ -15,7 +15,7 @@ class LoginDetails extends Component
         }
     }
 
-     getUserData = () => {
+     getUserData = async() => {
         let username = this.state.username;
         let password = this.state.password;
         if(username === '' && password === '')
@@ -23,7 +23,8 @@ class LoginDetails extends Component
             alert('Please Enter Your Username and Password');
         }
         else{    
-            this.props.navigation.navigate('Home');
+            await AsyncStorage.setItem('userToken' , 'abc');
+            this.props.navigation.navigate('App');
         }
     }
     render()

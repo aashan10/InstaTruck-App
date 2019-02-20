@@ -6,30 +6,27 @@ import SelectPage from './Components/selectPage';
 import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'react-navigation';
 import Home from './Components/Drawer/Home';
 import LoginDetails from './Components/Login/LoginDetails';
+
 const AppStack =  createStackNavigator({
     Home : Home,
     PlaceSelect : SelectPage
     }
 );
 const AuthStack = createStackNavigator({
-    firstScreen : FirstScreen,
     signIn: signInComponent
-    },{
-        initialRouteName: 'firstScreen'
     }
     );
-
+let FirstTimeLunch = true;
 const AppContainer = createAppContainer(
     createSwitchNavigator(
     {
         firstScreen : FirstScreen,
-        signIn : signInComponent,
-        Home: Home,
-        PlaceSelect: SelectPage
+        Auth:AuthStack,
+        App:AppStack
+       
     },
-    {
-        initialRouteName : 'Home'
-    })
+    FirstTimeLunch ? { initialRouteName: 'firstScreen'} : { initialRouteName:'App'}
+    )
 );
 export default class App extends Component
 {

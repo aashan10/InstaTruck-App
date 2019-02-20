@@ -1,17 +1,17 @@
-import {createDrawerNavigator, createAppContainer, withNavigation, createStackNavigator} from 'react-navigation';
-import About from '../About';
+import {createDrawerNavigator, createAppContainer, withNavigation} from 'react-navigation';
 import HomeDetails from '../Home/HomeDetails';
+import Logout from '../logout';
 const nav = createDrawerNavigator({
     Home: {
         screen: HomeDetails
     },
-    About : {
-        screen: About
+    Logout : {
+        screen: Logout
     },
 },{
     drawerPosition: 'left',
     initialRouteName: 'Home',
-    drawerBackgroundColor: 'gray',
+    drawerBackgroundColor: '#fff',
     drawerWidth: 200,
 });
 export const Home = createAppContainer(nav);

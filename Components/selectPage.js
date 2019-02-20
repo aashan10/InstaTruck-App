@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import {Button, Container, Header, Left, Content, Title, Form, Picker, Body, Icon, Right, Footer } from  'native-base';
 import {View, Text} from 'react-native';
+const places = [
+    {text: 'Canada'},
+    {text: 'Japan'},
+    {text: 'Sudan'},
+    {text: 'Combodia'},
+    {text: 'pakistan'},
+    {text: 'Dubai'}
+];
+const onSelect = (suggestion) => {
+    console.log(suggestion) // the pressed suggestion
+  }
 class SelectPage extends Component
 {
     constructor(props) {
@@ -10,6 +21,7 @@ class SelectPage extends Component
           dropOff : undefined
         };
       }
+     
       doWork = () => {
         let pickUpLoaction = this.state.pickUp;
         let dropOffLocation = this.state.dropOff;

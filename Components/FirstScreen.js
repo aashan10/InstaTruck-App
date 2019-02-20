@@ -1,10 +1,24 @@
 import {Component} from 'react';
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet,AsyncStorage} from 'react-native';
 import ImageSlider from 'react-native-image-slider';
 import {Button, Badge} from 'native-base';
 class FirstScreen extends Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            loggedIn: false
+        }
+        this._mySync();
+        
+    }
+
+    _mySync = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        userToken ? this.setState({loggedIn:true}) : this.setState({loggedIn:false})
+    }
     static navigationOptions = { title:"Welcome", header: null };
     render(){
         return(
@@ -18,13 +32,13 @@ class FirstScreen extends Component
                         ]}/>
                 </View>
                 <View>
-                    <Button full  onPress={() => this.props.navigation.navigate('signIn')}>
-                        <Text style={{color:'#fff'}}>Login</Text>
+                    <Button full  onPress={this.state.loggedIn ? () => this.props.navigation.navigate('App') : () => this.props.navigation.navigate('Auth')}>
+                        <Text style={{color:'#fff'}}>Next</Text>
                     </Button>
                 </View>
-            </View>
 
-                        
+
+            </View>        
         );
     }
 }

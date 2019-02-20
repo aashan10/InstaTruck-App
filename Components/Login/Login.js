@@ -5,7 +5,7 @@ import {withNavigation} from 'react-navigation';
 import {Container, Header, Body, Title, Content, Button} from 'native-base';
 
 const signInComponent = () => {
-    const navigationOptions = {header: null};
+     navigationOptions = { title:"Welcome", header: null };
             return (
                 <Container>
                 <Header>
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
         position: 'absolute'
     }
 })
-export default withNavigation(signInComponent);
+export default signInComponent;
