@@ -26,23 +26,17 @@ class SelectPage extends Component
         let pickUpLoaction = this.state.pickUp;
         let dropOffLocation = this.state.dropOff;
       }
-       
+      static navigationOptions = {
+        title: 'Select Location',
+        headerStyle: {
+            backgroundColor: '#3f51b5',
+          },
+          headerTintColor: '#fff',
+      };
     render()
     {
         return (
             <Container>
-                <Header>
-                    <Left>
-                        <Button transparent onPress= { () => this.props.navigation.openDrawer()}>
-                            <Icon name="menu"/>
-                        </Button>
-                    </Left> 
-                    <Body>
-                        <Title>
-                            Select Location
-                        </Title>
-                    </Body>
-                </Header>
                 <Content>
                     <View style={{flexDirection: 'row', flexWrap: 'wrap', margin:10}}>
                         <Text style={{fontWeight: 'bold', fontSize: 15}}>PickUp Point</Text>
@@ -50,6 +44,7 @@ class SelectPage extends Component
                         <Text style={{fontWeight: 'bold', fontSize: 15}}>Drop Off Point</Text>
                         </Right>
                     </View>
+                    <View style={{borderBottomColor: 'black',borderBottomWidth: 1,}} />
                     <View style={{flex:1, flexDirection: 'row', flexWrap: 'wrap', margin:10}}>
                         <Form>
                             <Picker

@@ -6,9 +6,10 @@ import SelectPage from './Components/selectPage';
 import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'react-navigation';
 import Home from './Components/Drawer/Home';
 import LoginDetails from './Components/Login/LoginDetails';
+import HomeDetails from './Components/Home/HomeDetails';
 
 const AppStack =  createStackNavigator({
-    Home : Home,
+    Home : HomeDetails,
     PlaceSelect : SelectPage
     }
 );

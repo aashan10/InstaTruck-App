@@ -18,8 +18,6 @@ class HomeDetails extends Component
             choosenDate: new Date()
           };
     }
-  
-    static navigationOptions = "Home"
     kamGar = (value) => {
         if(!this.state.laterSwitch){
             this.setState({
@@ -41,6 +39,7 @@ class HomeDetails extends Component
     sateDate = (newDate) => {
         this.setState({choosenDate: newDate, timePicker:true})
     }
+    static navigationOptions = { title:"Welcome", header: null };
     render()
     {
         const DatePickers =  <View><Text style={{fontSize:25,fontWeight:'bold'}}>Please Select Date And Time</Text><DatePicker
@@ -73,7 +72,7 @@ class HomeDetails extends Component
                         </Title>
                     </Body>
                 </Header>
-               <ImageSlider style={{flex:1}} autoPlayWithInterval={2000} images={[
+               <ImageSlider style={{flex:1}}  images={[
                     require('../images/img1.jpg'),
                     'http://placeimg.com/640/480/any',
                     'http://placeimg.com/640/480/any'
@@ -108,18 +107,3 @@ class HomeDetails extends Component
     }
 }
 export default withNavigation(HomeDetails);
-// const nav = createDrawerNavigator({
-//     Home: {
-//         screen: HomeDetails
-//     },
-//     About : {
-//         screen: About
-//     },
-// },{
-//     drawerPosition: 'left',
-//     initialRouteName: 'Home',
-//     drawerBackgroundColor: 'gray',
-//     drawerWidth: 200,
-// });
-// export const Home = createAppContainer(nav);
-// export default Home;
