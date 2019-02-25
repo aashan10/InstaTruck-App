@@ -28,10 +28,16 @@ class SelectPage extends Component
       doWork = () => {
         let pickUpLoaction = this.state.searchedAdresses;
         let dropOffLocation = this.state.searchedAdresses1;
-        this.props.navigation.navigate('summary',{
-            pickup: pickUpLoaction,
-            dropOff: dropOffLocation
-        });
+
+        if(pickUpLoaction === '' && dropOffLocation === ''){
+            alert('Please Specify The Locations!!');
+        }else{
+            this.props.navigation.navigate('summary',{
+                pickup: pickUpLoaction,
+                dropOff: dropOffLocation
+            });
+        }
+        
       }
       static navigationOptions = {
         title: 'Select Location',
@@ -59,7 +65,7 @@ class SelectPage extends Component
         return (
             
           <View style={{justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontWeight:'bold',fontSize:15}}>{adress.street} {adress.city} {adress.country}</Text>
+            <Text style={{fontWeight:'bold',fontSize:15}}>{adress.country}</Text>
           </View>
          
         );
@@ -94,17 +100,17 @@ class SelectPage extends Component
                                 onChangeText={this.searchedAdresses1}
                                 placeholder="Type your adress here" />
                             <ListView
-                            dataSource={ds.cloneWithRows(this.state.searchedAdresses)}
-                            renderRow={this.renderAdress} />
+                            dataSource={ds.cloneWithRows(this.state.searchedAdresses1)}
+                            renderRow={this.renderAdress}
+                            renderSeparator={(rowId) => <View key={rowId} style={styles.separator} />} />
                       </View>
                       </Right>
                     </View>
                 </Content>
-                <Footer>
-                    <Button transparent danger style={{margin:10}} onPress={this.doWork} >
+                    <Button full style={{margin:10}} onPress={this.doWork} >
                         <Text style={{color:'#fff', fontSize:20}}>Next </Text> 
                     </Button>
-                </Footer>
+                
             </Container>    
         );
     }
@@ -122,6 +128,11 @@ const styles = StyleSheet.create({
       backgroundColor: '#DDDDDD',
       height: 40,
       width: 150,
-    }
+    },
+    separator: {
+        
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#8E8E8E',
+      },
   });
 export default SelectPage;

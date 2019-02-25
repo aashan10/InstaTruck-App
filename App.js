@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet,AsyncStorage} from 'react-native';
 import signInComponent from './Components/Login/Login';
 import FirstScreen from './Components/FirstScreen';
 import SelectPage from './Components/selectPage';
@@ -26,8 +26,12 @@ const AuthStack = createStackNavigator({
 
 });
 
-
-let FirstTimeLunch = true;
+let FirstTimeLunch = false;
+let checkFirstTimeLunch = async () =>{
+    const checkFirst = await AsyncStorage.getItem('firstTime');
+    alert(checkFirst);
+    checkFirst ? FirstTimeLunch = true : FirstTimeLunch = false;
+}
 const AppContainer = createAppContainer(
     createSwitchNavigator(
     {
@@ -41,6 +45,8 @@ const AppContainer = createAppContainer(
 );
 export default class App extends Component
 {
+  
+    
     render() {
         return (           
         <AppContainer />  

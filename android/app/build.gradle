@@ -146,7 +146,6 @@ android {
 
 dependencies {
     // implementation 'com.google.firebase:firebase-core:16.0.7'
-    implementation project(':react-native-firebase')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
