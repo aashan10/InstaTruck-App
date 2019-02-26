@@ -1,9 +1,11 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet, Platform, Switch, TimePickerAndroid} from 'react-native';
+import {View, Text, StyleSheet, Platform, Image, Switch, TimePickerAndroid, AsyncStorage} from 'react-native';
 import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker } from 'native-base';
 import {withNavigation, createDrawerNavigator,createAppContainer} from 'react-navigation';
 import ImageSlider from 'react-native-image-slider';
+import Swiper from 'react-native-custom-swiper';
 import Logout from '../logout';
+ 
 class HomeDetails extends Component
 {   
     constructor(props)
@@ -16,9 +18,17 @@ class HomeDetails extends Component
             laterSwitch:false,
             timePicker:false,
             dateTimeSelected:false,
-            choosenDate: new Date()
+            choosenDate: new Date(),
+            ImageId: 1,
+            imgArray : [ 
+                require('../images/img.jpg'),
+                require('../images/img1.jpg'),
+                require('../images/img2.jpg'),
+                require('../images/logo.png')   
+            ],
+            currentIndex: 0
           };
-    }
+    }    
     kamGar = (value) => {
         if(!this.state.laterSwitch){
             this.setState({
@@ -37,8 +47,21 @@ class HomeDetails extends Component
         }
                
     }
+    
+    handleImages = (index) => {
+            this.setState({
+                currentIndex: index 
+            });
+    }
     sateDate = (newDate) => {
         this.setState({choosenDate: newDate, timePicker:true})
+    }
+    renderImageSwipeItem = (item) => {
+        return (
+            <View>
+                <Image source={item} resizeMode='center'/>
+            </View>
+        )
     }
     static navigationOptions = { title:"Welcome", header: null };
     render()
@@ -73,11 +96,17 @@ class HomeDetails extends Component
                         </Title>
                     </Body>
                 </Header>
-               <ImageSlider style={{flex:1}}  images={[
-                    require('../images/img1.jpg'),
-                    'http://placeimg.com/640/480/any',
-                    'http://placeimg.com/640/480/any'
-                ]}/>
+               {/* <ImageSlider style={{flex:1}}  
+               images= {Trucks} 
+               onPositionChanged= {this.handleImages}
+               /> */}
+               <Swiper
+                   style={{flex:1}}
+                   currentSelectIndex={0}
+                   swipeData={this.state.imgArray}
+                   renderSwipeItem={this.renderImageSwipeItem}
+                   onScreenChange={this.handleImages}
+               />
                 <Content>
                    <View style={{backgroundColor:'#34495e', padding:10,flexDirection:"row", flexWrap:"wrap"}}>
                         <Text style={{color: '#fff', fontSize: 18}}>Book</Text>  
@@ -94,6 +123,9 @@ class HomeDetails extends Component
                             </View>
                         </Right>    
                    </View>
+                   <View>
+                       <Text style={{fontSize:21.56}}>{this.state.currentIndex}</Text>
+                   </View>
                    {this.state.garyo===true ? DatePickers : message }
                    {/* {this.state.timePicker === true ? Actions: message} */}
                 </Content>
@@ -107,4 +139,5 @@ class HomeDetails extends Component
         );
     }
 }
+
 export default HomeDetails;

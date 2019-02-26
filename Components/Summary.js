@@ -43,7 +43,7 @@ class LocationSummary extends Component
                 </Content>
                 <Footer>
                     <FooterTab>
-                        <Button>
+                        <Button onPress={() => this.props.navigation.goBack()}>
                             <Text style={{color:'#fff'}}> Prev</Text>
                         </Button>
                         <Button>
