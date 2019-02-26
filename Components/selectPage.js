@@ -7,8 +7,8 @@ class SelectPage extends Component
     constructor(props){
         super(props);
         this.state = ({
-            pickUpLocation: '',
-            dropOffLocation: ''
+            pickUpLocation: [],
+            dropOffLocation: []
         })
     }
     static navigationOptions = {
@@ -20,46 +20,44 @@ class SelectPage extends Component
       };
       pickUpLocation = (location) => {
           if(location != ''){
-              this.setState({
-                  pickUpLocation: location
-              });
+              this.setState({pickUpLocation: location});
           }
       }
       dropOffLocation = (location) => {
           if(location != ''){
               this.setState({
-                  dropOffLocation:location
+                  dropOffLocation: location
               });
           }
 
       }
       goToSummaryPage = () => {
-       
-          
-        //   this.props.navigation.navigate('summary',{
-        //     pickup: '',
-        //     dropOff: ''
-        //   });
+        //   alert(this.state.pickUpLocation.length);
+          if(this.state.pickUpLocation.length <= 1){
+              alert('Enter the Locations!!');
+          }else if(this.state.dropOffLocation.length <=1){
+              alert('Enter anything');
+          }else{
+            this.props.navigation.navigate('summary', {
+                pickup: this.state.pickUpLocation,
+                dropOff: this.state.dropOffLocation
+            })
+
+          }
       }
     render() 
     {
-        const data =[ 
-            'Kalanki',
-            'kalimati',
-            'balkhu',
-            'sanepa'
-        ]
         return(
             <Container>
                 <Content>
                
-                    <Text style={{fontSize:20}}>Pickup:</Text>
+                    <Text style={{fontSize:20, margin:10}}>Pickup:</Text>
                     <Item regular style={{margin:15}}>
                         <Icon active name="paper-plane" />
-                        <Input placeholder="Pickup Location" onChangeText={this.pickUpLocation} />
+                        <Input autoComplete='street-address' placeholder="Pickup Location" onChangeText={this.pickUpLocation} />
                     </Item>
                     
-                    <Text style={{fontSize:20}}>Drop Off:</Text>
+                    <Text style={{fontSize:20, margin:10}}>Drop Off:</Text>
                     <Item regular style={{margin:15}}>
                         <Icon active name='bicycle' />
                         <Input placeholder='Drop Off Location' onChangeText={this.dropOffLocation} />

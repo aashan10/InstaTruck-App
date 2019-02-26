@@ -8,6 +8,13 @@ class LocationSummary extends Component
         super(props);
        
     }
+    static navigationOptions = {
+        title: 'Location Summary',
+        headerStyle: {
+            backgroundColor: '#3f51b5',
+          },
+          headerTintColor: '#fff',
+      };
     render()
     {
         const pickup = this.props.navigation.getParam('pickup','empty');
@@ -16,28 +23,28 @@ class LocationSummary extends Component
             <Container>
                
                 <Content>
-                    <Card style={{padding:20, margin:40}}>
+                    <Card style={{ margin:40,marginTop:20}}>
                         <CardItem>
-                        <Left>
                             <Badge >
                                 <Text style={{color:'#fff', alignContent:'center',alignItems:'center'}}>Pickup</Text>
                             </Badge>
-                        </Left>
-                            <Text style={{color:'#000', fontSize:15}}>
+                            <View style={{alignContent:'center', alignItems:'center'}}>
+                            <Text style={{color:'#000', fontSize:15, marginLeft: 78}}>
                                 {JSON.stringify(pickup)}                            
                             </Text>
+                            </View>
                         </CardItem>
                     </Card>
-                    <Card style={{margin:40, padding:20}}>
+                    <Card style={{margin:40,marginTop:20}}>
                         <CardItem>
-                        <Left>
                             <Badge success >
                                 <Text style={{color:'#fff'}}>DropOff</Text>
                             </Badge>
-                        </Left>
-                            <Text style={{color:'#000', fontSize:15}}>
+                            <View style={{alignContent:'center', alignItems:'center'}}>
+                            <Text style={{color:'#000', fontSize:15, marginLeft:78}}>
                                 {JSON.stringify(dropOff)}                            
                             </Text>
+                            </View>
                         </CardItem>
                     </Card>
                 </Content>
@@ -46,7 +53,7 @@ class LocationSummary extends Component
                         <Button onPress={() => this.props.navigation.goBack()}>
                             <Text style={{color:'#fff'}}> Prev</Text>
                         </Button>
-                        <Button>
+                        <Button onPress={() => this.props.navigation.navigate('Details')}>
                             <Text style={{color:'#fff'}}>Next</Text>
                         </Button>
                     </FooterTab>

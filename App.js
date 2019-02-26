@@ -6,9 +6,8 @@ import SelectPage from './Components/selectPage';
 import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'react-navigation';
 import Home from './Components/Drawer/Home';
 import LoginDetails from './Components/Login/LoginDetails';
-import HomeDetails from './Components/Home/HomeDetails';
 import LocationSummary from './Components/Summary';
-
+import MoreDetails from './Components/moreDetails';
 const AppStack =  createStackNavigator({
     Home : {
         screen: Home,
@@ -17,7 +16,8 @@ const AppStack =  createStackNavigator({
         }
     },
     PlaceSelect : SelectPage,
-    summary: LocationSummary
+    summary: LocationSummary,
+    Details: MoreDetails
     }
 );
 const AuthStack = createStackNavigator({

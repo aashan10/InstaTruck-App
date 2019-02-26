@@ -63,7 +63,7 @@ class HomeDetails extends Component
             </View>
         )
     }
-    static navigationOptions = { title:"Welcome", header: null };
+    static navigationOptions = {  header: null };
     render()
     {
         const DatePickers =  <View><Text style={{fontSize:25,fontWeight:'bold'}}>Please Select Date And Time</Text><DatePicker
@@ -109,7 +109,8 @@ class HomeDetails extends Component
                />
                 <Content>
                    <View style={{backgroundColor:'#34495e', padding:10,flexDirection:"row", flexWrap:"wrap"}}>
-                        <Text style={{color: '#fff', fontSize: 18}}>Book</Text>  
+                        <Icon active name="lock" style={{color:'#fff'}} />
+                        <Text style={{color: '#fff', fontSize: 18}}> Book</Text>  
                         <Right>
                             <View style={{flexDirection:"row", flexWrap:"wrap"}}>
                             <Text style={{color: '#fff'}}>Now</Text>
