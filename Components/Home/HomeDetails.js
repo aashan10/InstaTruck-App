@@ -1,10 +1,11 @@
 import React ,{Component} from 'react';
 import {View, Text, StyleSheet, Platform, Image, Switch, TimePickerAndroid, AsyncStorage} from 'react-native';
-import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker } from 'native-base';
+import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker, Card, CardItem } from 'native-base';
 import {withNavigation, createDrawerNavigator,createAppContainer} from 'react-navigation';
 import ImageSlider from 'react-native-image-slider';
 import Swiper from 'react-native-custom-swiper';
 import Logout from '../logout';
+import DateTimePicker from 'react-native-modal-datetime-picker';
  
 class HomeDetails extends Component
 {   
@@ -16,6 +17,7 @@ class HomeDetails extends Component
             falseSwitchIsOn: false,
             garyo: false,
             laterSwitch:false,
+            isDateTimePickerVisible:false,
             timePicker:false,
             dateTimeSelected:false,
             choosenDate: new Date(),
@@ -26,7 +28,9 @@ class HomeDetails extends Component
                 require('../images/img2.jpg'),
                 require('../images/logo.png')   
             ],
-            currentIndex: 0
+            currentIndex: 0,
+            bookingDate: '',
+            bookingTime: ''
           };
     }    
     kamGar = (value) => {
@@ -34,6 +38,7 @@ class HomeDetails extends Component
             this.setState({
                  falseSwitchIsOn: value,
                  garyo: true,
+                 isDateTimePickerVisible:true,
                  laterSwitch:true
             });
             return;
@@ -59,28 +64,69 @@ class HomeDetails extends Component
     renderImageSwipeItem = (item) => {
         return (
             <View>
-                <Image source={item} resizeMode='center'/>
+                <Image source={item} height='800' width='800' resizeMode='cover'/>
             </View>
         )
     }
+    
+        _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+            _handleDatePicked = (date) => {
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                let formattedDate = date.toDateString();
+
+                this.setState({
+                    bookingDate : formattedDate,
+                    bookingTime:strTime,
+                    dateTimeSelected:true
+                });
+                
+                this._hideDateTimePicker();
+            };
     static navigationOptions = {  header: null };
+    
     render()
     {
-        const DatePickers =  <View><Text style={{fontSize:25,fontWeight:'bold'}}>Please Select Date And Time</Text><DatePicker
+        const DatePickers =  <View>
+        {/* <DatePicker
         defaultDate={new Date(2019, 2, 19)}
         minimumDate={new Date(2019, 1, 1)}
         maximumDate={new Date(2029  , 12, 31)}
         locale={"en"}
         onDateChange={this.sateDate}
-        /></View>
+        /> */}
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={this._handleDatePicked}
+          onCancel={this._hideDateTimePicker}
+          mode={'datetime'}
+          is24Hour={false}
+        />
+        </View>
         const message = <Text></Text>
         // const {Actions, hours,minute} =  TimePickerAndroid.open({
         //     hour:13,
         //     minute:27,
         //     is24Hour:false
         // });
-        const nextBtn = <Button transparent danger onPress={() => this.props.navigation.navigate('PlaceSelect')} >
-        <Text style={{fontSize: 18, color: 'red', marginRight:15}}>Next</Text>
+        const bookedDateAndTime = 
+        <Card style={{margin:5}}>
+        <CardItem>
+        <Body>
+        <Text style={{fontSize:20, fontWeight:'bold', color:'#2980b9'}}>On : {this.state.bookingDate} </Text>
+        <Text style={{fontSize:20, fontWeight:'bold', color:'#2c3e50'}}>AT: {this.state.bookingTime} </Text>
+        <Text style={{fontSize:20, fontWeight:'bold', color:'#2c3e50'}}>vehicleType: {this.state.currentIndex} </Text>
+        </Body>
+        </CardItem>
+        </Card>
+        const nextBtn = <Button style={{marginBottom:10}} transparent danger onPress={() => this.props.navigation.navigate('PlaceSelect')} >
+        <Text style={{fontSize: 20, color: 'red', marginRight:15}}>Next</Text>
     </Button>
         return(
             <Container>
@@ -124,11 +170,11 @@ class HomeDetails extends Component
                             </View>
                         </Right>    
                    </View>
-                   <View>
+                   {/* <View>
                        <Text style={{fontSize:21.56}}>{this.state.currentIndex}</Text>
-                   </View>
+                   </View> */}
                    {this.state.garyo===true ? DatePickers : message }
-                   {/* {this.state.timePicker === true ? Actions: message} */}
+                    {this.state.dateTimeSelected ? bookedDateAndTime : message}
                 </Content>
                 <Footer style={{backgroundColor:'#ecf0f1'}}>
                     <Right>
@@ -142,3 +188,14 @@ class HomeDetails extends Component
 }
 
 export default HomeDetails;
+
+
+
+
+
+
+
+
+
+
+{/* <Card><CardItem><Body><Text style={{fontSize:20, fontStyle:'italic', fontWeight:'bold', color:'#2980b9'}}>On: {this.state.choosenDate}</Text><Text style={{fontSize:20, fontStyle:'italic', fontWeight:'bold', color:'#16a085'}}>AT: {this.state.bookingTime}</Text></Body></CardItem></Card> */}

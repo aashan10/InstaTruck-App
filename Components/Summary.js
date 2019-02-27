@@ -35,6 +35,7 @@ class LocationSummary extends Component
                             </View>
                         </CardItem>
                     </Card>
+                    
                     <Card style={{margin:40,marginTop:20}}>
                         <CardItem>
                             <Badge success >
