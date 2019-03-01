@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, Switch,Slider} from 'react-native';
-import {Container, Content, Icon, Right, Separator, List, ListItem, Left, Body} from 'native-base';
-import {MultiSelect}  from 'react-native-multiple-select';
-class MoreDetails extends Component
+import {Container, Content, Icon, Right, List, ListItem, Left, Body} from 'native-base';
+import {PickerCheckBox} from 'react-native-picker-checkbox';
+
+
+const fruits = ['Apples', 'Oranges', 'Pears']
+export default class MoreDetails extends Component
 {
     constructor(props){
         super(props);
@@ -18,37 +21,6 @@ class MoreDetails extends Component
             value:5,
             
         });
-        this.items = [{
-            id: '92iijs7yta',
-            name: 'Ondo',
-          }, {
-            id: 'a0s0a8ssbsd',
-            name: 'Ogun',
-          }, {
-            id: '16hbajsabsd',
-            name: 'Calabar',
-          }, {
-            id: 'nahs75a5sg',
-            name: 'Lagos',
-          }, {
-            id: '667atsas',
-            name: 'Maiduguri',
-          }, {
-            id: 'hsyasajs',
-            name: 'Anambra',
-          }, {
-            id: 'djsjudksjd',
-            name: 'Benue',
-          }, {
-            id: 'sdhyaysdj',
-            name: 'Kaduna',
-          }, {
-            id: 'suudydjsjd',
-            name: 'Abuja',
-          }];
-          this.state = {
-            selectedItems : []
-          };
         
     }
     static navigationOptions = {
@@ -105,6 +77,10 @@ class MoreDetails extends Component
       onSelectedItemsChange = selectedItems => {
         this.setState({ selectedItems });
       };
+
+    //   handleConfirm(pItems){
+    //    alert( pItems);
+    //   }
     render()
     {
         const RedText = <Text style={{color:'#EA2027'}}>{this.state.VehicleType}</Text>
@@ -167,44 +143,15 @@ class MoreDetails extends Component
                             <Icon active name="database" />
                         </Left>
                         <Body>
-                            <Text>Hellooo</Text>
+                        
                         </Body>
                     </ListItem>
                     </List>
-                   
+                    
                 </Content>
             </Container>
         );
     }
 }
 
-export default MoreDetails;
 
-
-{/* <View style={{flex:1}}>
-<MultiSelect
-        hideTags
-        items={this.items}
-        uniqueKey="id"
-        ref={(component) => { this.multiSelect = component }}
-        onSelectedItemsChange={this.onSelectedItemsChange}
-        selectedItems={this.selectedItems}
-        selectText="Pick Items"
-        searchInputPlaceholderText="Search Items..."
-        onChangeInput={ (text)=> console.log(text)}
-        altFontFamily="ProximaNova-Light"
-        tagRemoveIconColor="#CCC"
-        tagBorderColor="#CCC"
-        tagTextColor="#CCC"
-        selectedItemTextColor="#CCC"
-        selectedItemIconColor="#CCC"
-        itemTextColor="#000"
-        displayKey="name"
-        searchInputStyle={{ color: '#CCC' }}
-        submitButtonColor="#CCC"
-        submitButtonText="Submit"
-        />
-        <View>
-        {this.multiSelect.getSelectedItemsExt(this.selectedItems)}
-        </View>
-</View> */}

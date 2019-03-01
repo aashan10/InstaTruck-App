@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet, Platform, Image, Switch, TimePickerAndroid, AsyncStorage} from 'react-native';
+import {View, Text, StyleSheet, Platform, Image, Switch, Dimensions, TimePickerAndroid, AsyncStorage} from 'react-native';
 import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker, Card, CardItem } from 'native-base';
 import {withNavigation, createDrawerNavigator,createAppContainer} from 'react-navigation';
 import ImageSlider from 'react-native-image-slider';
@@ -23,14 +23,14 @@ class HomeDetails extends Component
             choosenDate: new Date(),
             ImageId: 1,
             imgArray : [ 
-                require('../images/img.jpg'),
-                require('../images/img1.jpg'),
-                require('../images/img2.jpg'),
-                require('../images/logo.png')   
+                require('../images/tataAce.jpg'),
+                require('../images/tata407.jpg'),
+                require('../images/canter.jpg'), 
             ],
             currentIndex: 0,
             bookingDate: '',
-            bookingTime: ''
+            bookingTime: '',
+            vehicle: 'Tata Ace | Tata Super Ace',
           };
     }    
     kamGar = (value) => {
@@ -57,14 +57,30 @@ class HomeDetails extends Component
             this.setState({
                 currentIndex: index 
             });
+            let vehicleType = this.state.currentIndex;
+            // alert(vehicleType);
+            if(index === 0){
+                this.setState({
+                    vehicle: 'Tata Ace | Tata Super Ace'
+                });
+            } else if(index === 1){
+                this.setState({
+                    vehicle:'Tata 407'
+                });
+            } else{
+                this.setState({
+                    vehicle:'Canter 14'
+                })
+            }
     }
     sateDate = (newDate) => {
         this.setState({choosenDate: newDate, timePicker:true})
     }
     renderImageSwipeItem = (item) => {
+        var {width} = Dimensions.get('window');
         return (
             <View>
-                <Image source={item} height='800' width='800' resizeMode='cover'/>
+                <Image source={item} style={{ flex: 1, alignSelf: 'stretch', width:width  }}  resizeMode='contain'/>
             </View>
         )
     }
@@ -90,7 +106,6 @@ class HomeDetails extends Component
                 this._hideDateTimePicker();
             };
     static navigationOptions = {  header: null };
-    
     render()
     {
         const DatePickers =  <View>
@@ -116,12 +131,12 @@ class HomeDetails extends Component
         //     is24Hour:false
         // });
         const bookedDateAndTime = 
-        <Card style={{margin:5}}>
+        <Card style={{margin:15}}>
         <CardItem>
         <Body>
         <Text style={{fontSize:20, fontWeight:'bold', color:'#2980b9'}}>On : {this.state.bookingDate} </Text>
         <Text style={{fontSize:20, fontWeight:'bold', color:'#2c3e50'}}>AT: {this.state.bookingTime} </Text>
-        <Text style={{fontSize:20, fontWeight:'bold', color:'#2c3e50'}}>vehicleType: {this.state.currentIndex} </Text>
+        <Text style={{fontSize:20, fontWeight:'bold', color:'#2c3e50'}}>vehicleType: {this.state.vehicle} </Text>
         </Body>
         </CardItem>
         </Card>
@@ -174,7 +189,8 @@ class HomeDetails extends Component
                        <Text style={{fontSize:21.56}}>{this.state.currentIndex}</Text>
                    </View> */}
                    {this.state.garyo===true ? DatePickers : message }
-                    {this.state.dateTimeSelected ? bookedDateAndTime : message}
+                   {/* {this.state.laterSwitch ? bookedDateAndTime : message} */}
+                    {this.state.dateTimeSelected && this.state.laterSwitch ? bookedDateAndTime : message}
                 </Content>
                 <Footer style={{backgroundColor:'#ecf0f1'}}>
                     <Right>

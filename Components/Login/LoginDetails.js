@@ -24,6 +24,23 @@ class LoginDetails extends Component
         }
         else{    
             await AsyncStorage.setItem('userToken' , 'abc');
+            let url = 'https://epapi.pvdemo.com/login';
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json',
+                    },
+                 body: JSON.stringify({
+                    username: username,
+                    password: password,
+                 }),
+            })
+            .then((response)=> response.json() )
+            .then((responseJson) => {
+                alert(JSON.stringify(responseJson));
+            }).catch((error)=>console.error(error));
+            // return;
             this.props.navigation.navigate('App');
         }
     }

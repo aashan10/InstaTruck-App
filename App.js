@@ -18,6 +18,8 @@ const AppStack =  createStackNavigator({
     PlaceSelect : SelectPage,
     summary: LocationSummary,
     Details: MoreDetails
+    },{
+        initialRouteName:'Details'
     }
 );
 const AuthStack = createStackNavigator({
