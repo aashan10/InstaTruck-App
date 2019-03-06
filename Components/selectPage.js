@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import{ Content, Item, Input, Container, Icon, Right, Button} from 'native-base';
+import {View, Text, TouchableOpacity, ListView, StyleSheet} from 'react-native';
+import{ Content, Item, Input, Container, Icon, Right, Button, ListItem, List} from 'native-base';
 // import {AutoComplete} from 'native-base-autocomplete';
+const places = [
+    {country: 'Canada'},
+    {country: 'Japan'},
+    {country: 'Sudan'},
+    {country: 'Combodia'},
+    {country: 'pakistan'},
+    {country: 'Dubai'},
+    {country: 'Nepal'}
+];
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class SelectPage extends Component
 {
     constructor(props){
         super(props);
-        this.state = ({
+        this.state = {
             pickUpLocation: [],
-            dropOffLocation: []
-        })
+            dropOffLocation: [],
+            dhekaunepickUp : '',
+            dhekaunedropOff: ''
+        };
     }
     static navigationOptions = {
         title: 'Select Location',
@@ -19,24 +31,25 @@ class SelectPage extends Component
           headerTintColor: '#fff',
       };
       pickUpLocation = (location) => {
-          if(location != ''){
-              this.setState({pickUpLocation: location});
-          }
-      }
+          let searchedLocation = places.filter(function(address){
+              return address.country.toLowerCase().indexOf(location.toLowerCase()) > -1;
+          });
+          this.setState({pickUpLocation:searchedLocation});
+      };
       dropOffLocation = (location) => {
-          if(location != ''){
-              this.setState({
-                  dropOffLocation: location
-              });
-          }
+          let searchedLocation = places.filter(function(address) {
+            return address.country.toLowerCase().indexOf(location.toLowerCase()) > -1;
+          });
+          this.setState({dropOffLocation:searchedLocation});
+          };
 
-      }
+      
       goToSummaryPage = () => {
         //   alert(this.state.pickUpLocation.length);
           if(this.state.pickUpLocation.length <= 1){
               alert('Enter the Locations!!');
           }else if(this.state.dropOffLocation.length <=1){
-              alert('Enter anything');
+              alert('Enter Drop Off Location');
           }else{
             this.props.navigation.navigate('summary', {
                 pickup: this.state.pickUpLocation,
@@ -45,24 +58,52 @@ class SelectPage extends Component
 
           }
       }
+
+      setLocation = (locationData) => {
+        if(this.state.pickUpLocation.length <= 1){
+            this.setState({pickUpLocation:locationData})
+        }else if(this.state.dropOffLocation.length<=1){
+            this.setState({dropOffLocation:locationData})
+        }
+        
+      }
+
+      renderAdress = (address) => {
+        return (
+           <View>
+                <TouchableOpacity onPress={this.setLocation.bind(this,address)}>
+                <Text style={{margin:10, fontSize:20}}>{address.country}</Text>
+                </TouchableOpacity>
+                
+            </View>
+        );
+    }
     render() 
     {
+       
         return(
             <Container>
                 <Content>
                
-                    <Text style={{fontSize:20, margin:10}}>Pickup:</Text>
+                    <Text style={{fontSize:20, margin:10, fontWeight:'bold'}}>Pickup:</Text>
                     <Item regular style={{margin:15}}>
                         <Icon active name="paper-plane" />
-                        <Input autoComplete='street-address' placeholder="Pickup Location" onChangeText={this.pickUpLocation} />
-                    </Item>
-                    
-                    <Text style={{fontSize:20, margin:10}}>Drop Off:</Text>
+                        <Input autoComplete='street-address' placeholder="Pickup Location" onChangeText={this.pickUpLocation} value={this.state.pickUpLocation.country} />
+                    </Item> 
+                    <ListView
+                            dataSource={ds.cloneWithRows(this.state.pickUpLocation)}
+                            renderRow={this.renderAdress}
+                            renderSeparator={(rowId) => <View key={rowId} style={styles.separator} />} />                  
+                    <Text style={{fontSize:20, margin:10, fontWeight:'bold'}}>Drop Off:</Text>
                     <Item regular style={{margin:15}}>
                         <Icon active name='bicycle' />
-                        <Input placeholder='Drop Off Location' onChangeText={this.dropOffLocation} />
+                        <Input placeholder='Drop Off Location' onChangeText={this.dropOffLocation} value={this.state.dropOffLocation.country} />
                     </Item>
-                </Content>
+                    <ListView
+                            dataSource={ds.cloneWithRows(this.state.dropOffLocation)}
+                            renderRow={this.renderAdress}
+                            renderSeparator={(rowId) => <View key={rowId} style={styles.separator} />} />
+                 </Content>
                 <Button full style={{margin:10}} onPress={this.goToSummaryPage}>
                     <Text style={{color:'#fff', fontSize:19.8}}>Next</Text>
                 </Button>
@@ -71,5 +112,12 @@ class SelectPage extends Component
     }
 }
 
+const styles = StyleSheet.create({
+    separator: {
+        
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#8E8E8E',
+      },
+})
 
 export default SelectPage;

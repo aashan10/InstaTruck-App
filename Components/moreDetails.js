@@ -143,7 +143,7 @@ export default class MoreDetails extends Component
                             <Icon active name="database" />
                         </Left>
                         <Body>
-                        
+                            
                         </Body>
                     </ListItem>
                     </List>
