@@ -121,7 +121,8 @@ import MultiSelect from 'react-native-multiple-select';
           const dropOffLocation = this.props.navigation.getParam('dropOff','empty');
           const date = this.props.navigation.getParam('date','empty');
           const time = this.props.navigation.getParam('time','empty');    
-          const vehicleType = this.props.navigation.getParam('vehicleType','empty');
+          const vehicleType = this.props.navigation.state.params.vechileType;
+          const imageIndex = this.props.navigation.state.params.imageIndex;
           if (this.state.value === 0) {
               Alert.alert(
                   'Labour Cost',
@@ -148,6 +149,7 @@ import MultiSelect from 'react-native-multiple-select';
                                   closedType:this.state.VehicleType,
                                   rubberizedPlatform:this.state.rubberizedPlatform,
                                   goodsDetails:this.state.selectedItems,
+                                  imageIndex:imageIndex,
                               })
                           }
                       },
@@ -164,6 +166,7 @@ import MultiSelect from 'react-native-multiple-select';
                                   closedType:this.state.VehicleType,
                                   rubberizedPlatform:this.state.rubberizedPlatform,
                                   goodsDetails:this.state.selectedItems,
+                                  imageIndex:imageIndex
           }) : null;
           }
 

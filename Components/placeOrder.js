@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, Switch,Slider, CheckBox, StyleSheet} from 'react-native';
-import {Container} from 'native-base';
+import {View, Text, Switch,Slider, CheckBox, StyleSheet, Image} from 'react-native';
+import {Container, Content, Card, CardItem, Left, Right} from 'native-base';
 
 class placeOrder extends Component
 {     
@@ -16,33 +16,95 @@ class placeOrder extends Component
          console.log(date);
          let time =this.props.navigation.getParam('time','empty');
          console.log(time);
-         let vechileType =this.props.navigation.getParam('vechileType','empty');
+         let vechileType =this.props.navigation.state.params.vechileType;
          console.log(vechileType);
          let closedType =this.props.navigation.getParam('closedType','empty');
          console.log(closedType);
          let rubberizedPlatform =this.props.navigation.getParam('rubberizedPlatform','empty');
          console.log(rubberizedPlatform);
          let goodsDetails =this.props.navigation.state.params.goodsDetails;
-         console.log(goodsDetails[0]);
-        
+         console.log(goodsDetails);
+         let imageIndexs = this.props.navigation.state.params.imageIndex;
+         if(imageIndexs == 0){
+             imgPath = require('./images/tataAce.jpg');
+         } else if(imageIndexs == 1){
+             imgPath = require('./images/tata407.jpg');
+         } else{
+             imgPath= require('./images/canter.jpg');
+         }
         return(
-            <View style={{flex:1,alignContent:'center', alignItems:'center'}}>
-                <Text style={styles.dataStyle}>Order Details</Text>
-                <Text style={styles.dataStyle}>Comment:{comment}</Text>
-                <Text style={styles.dataStyle}>PickUp:{pickup.country}</Text>
-                <Text style={styles.dataStyle}>DropOff:{dropOff.country}</Text>
-                <Text style={styles.dataStyle}>Date:{date}</Text>
-                <Text style={styles.dataStyle}>Time:{time}</Text>
-                <Text style={styles.dataStyle}>VechileType:{vechileType}</Text>
-                <Text style={styles.dataStyle}>ClosedType: {closedType}</Text>
-                <Text style={styles.dataStyle}>Rubber:{rubberizedPlatform? <Text>True</Text> : <Text>False</Text>}</Text>
-                   <View>
-                        <Text style={styles.dataStyle}>Data: {goodsDetails.map((items,key) => {
-                                 return(<Text style={styles.dataStyle} key={key}>{items} || </Text>);
-                                 })}
-                        </Text>
-                    </View> 
-            </View>
+            <Container>
+                    <Content>
+                        <Card>
+                            <CardItem header bordered>
+                                <Text style={{ fontSize:20, fontWeight: '600', color: '#333' }}>Order Details</Text>
+                            </CardItem>
+                            <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Left>
+                                    <Text style={styles.dataStyle} >PickUp Location:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{pickup.country}</Text>
+                                </Right>
+                            </CardItem>
+                            <CardItem cardBody style={{margin:10, padding:5}} bordered >
+                                <Left>
+                                    <Text style={styles.dataStyle}>DropOff Location:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{dropOff.country}</Text>
+                                </Right>
+                                </CardItem>
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered >
+                                <Left>
+                                    <Text style={styles.dataStyle}>Date:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{date}</Text>
+                                </Right>
+                                </CardItem>
+                                
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Left>
+                                    <Text style={styles.dataStyle}>Time:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{time}</Text>
+                                </Right>
+                                </CardItem>
+                                
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Left>
+                                    <Text style={styles.dataStyle}>Vechile:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{vechileType}</Text>
+                                </Right>
+                                </CardItem>
+                                
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Left>
+                                    <Text style={styles.dataStyle}>VechileType:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{closedType}</Text>
+                                </Right>
+                                </CardItem>
+
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Left>
+                                    <Text style={styles.dataStyle}>Rubberied Platofrm:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{rubberizedPlatform? <Text>True</Text> : <Text>False</Text>}</Text>
+                                </Right>
+                                </CardItem>
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Image  source={imgPath} style={{ height : 200, width:null, flex : 1 }} />
+                            </CardItem>
+                        </Card>
+                    </Content>
+            </Container>
         );
     }
 }

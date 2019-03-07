@@ -27,6 +27,7 @@ class LocationSummary extends Component
         console.log(time);
         let vehicleType = this.props.navigation.state.params.vechileType;
         console.log(vehicleType);
+        let imageIndex = this.props.navigation.state.params.imageIndex;
         return(
             <Container>
                
@@ -67,7 +68,8 @@ class LocationSummary extends Component
                              time:time,
                              vechileType:vehicleType,
                              pickup: pickup,
-                             dropOff:dropOff
+                             dropOff:dropOff,
+                             imageIndex:imageIndex
                         })}>
                             <Text style={{color:'#fff'}}>Next</Text>
                         </Button>

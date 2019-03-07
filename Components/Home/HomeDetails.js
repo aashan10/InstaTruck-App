@@ -106,10 +106,11 @@ class HomeDetails extends Component
                 this._hideDateTimePicker();
             };
        goToNextPage = () => {
-        this.props.navigation.navigate('PlaceSelect',{
+           this.props.navigation.navigate('PlaceSelect',{
             date:this.state.bookingDate,
             time:this.state.bookingTime,
-            vehicleType:this.state.vehicle
+            vehicleType:this.state.vehicle,
+            imageIndex:this.state.currentIndex
             });
        }     
     static navigationOptions = {  header: null };

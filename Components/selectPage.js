@@ -52,6 +52,7 @@ class SelectPage extends Component
         console.log(time);
         const vechileType = this.props.navigation.state.params.vehicleType;
         console.log(vechileType);
+        const imageIndex = this.props.navigation.state.params.imageIndex;
           if(this.state.pickUpLocation.length <= 1){
               alert('Enter the Locations!!');
           }else if(this.state.dropOffLocation.length <=1){
@@ -65,6 +66,7 @@ class SelectPage extends Component
                 date: date,
                 time: time,
                 vechileType:vechileType,
+                imageIndex:imageIndex,
                 
 
             })
