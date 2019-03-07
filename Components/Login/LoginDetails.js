@@ -80,7 +80,7 @@ class LoginDetails extends Component
                 </View>
                 <Button  block style={{margin:10}} onPress={this.getUserData}>
                         <Text style={{color: '#fff', fontSize:20}}>Login</Text>
-                    </Button>
+                </Button>
                 </Content>
                 </Container>
         );    

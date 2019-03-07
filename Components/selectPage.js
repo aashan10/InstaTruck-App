@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, ListView, StyleSheet} from 'react-native';
 import{ Content, Item, Input, Container, Icon, Right, Button, ListItem, List} from 'native-base';
-// import {AutoComplete} from 'native-base-autocomplete';
+import { withNavigation} from 'react-navigation';
 const places = [
     {country: 'Canada'},
     {country: 'Japan'},
@@ -9,7 +9,8 @@ const places = [
     {country: 'Combodia'},
     {country: 'pakistan'},
     {country: 'Dubai'},
-    {country: 'Nepal'}
+    {country: 'Nepal'},
+    {country: 'America'}
 ];
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class SelectPage extends Component
@@ -45,15 +46,27 @@ class SelectPage extends Component
 
       
       goToSummaryPage = () => {
-        //   alert(this.state.pickUpLocation.length);
+        const date = this.props.navigation.state.params.date;
+        console.log(date);
+        const time = this.props.navigation.state.params.time;
+        console.log(time);
+        const vechileType = this.props.navigation.state.params.vehicleType;
+        console.log(vechileType);
           if(this.state.pickUpLocation.length <= 1){
               alert('Enter the Locations!!');
           }else if(this.state.dropOffLocation.length <=1){
               alert('Enter Drop Off Location');
           }else{
+              console.log(this.state.pickUpLocation);
+              console.log(this.state.dropOffLocation);
             this.props.navigation.navigate('summary', {
                 pickup: this.state.pickUpLocation,
-                dropOff: this.state.dropOffLocation
+                dropOff: this.state.dropOffLocation,
+                date: date,
+                time: time,
+                vechileType:vechileType,
+                
+
             })
 
           }
@@ -120,4 +133,4 @@ const styles = StyleSheet.create({
       },
 })
 
-export default SelectPage;
+export default withNavigation(SelectPage);

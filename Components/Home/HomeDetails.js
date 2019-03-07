@@ -102,20 +102,20 @@ class HomeDetails extends Component
                     bookingTime:strTime,
                     dateTimeSelected:true
                 });
-                
+               
                 this._hideDateTimePicker();
             };
+       goToNextPage = () => {
+        this.props.navigation.navigate('PlaceSelect',{
+            date:this.state.bookingDate,
+            time:this.state.bookingTime,
+            vehicleType:this.state.vehicle
+            });
+       }     
     static navigationOptions = {  header: null };
     render()
     {
         const DatePickers =  <View>
-        {/* <DatePicker
-        defaultDate={new Date(2019, 2, 19)}
-        minimumDate={new Date(2019, 1, 1)}
-        maximumDate={new Date(2029  , 12, 31)}
-        locale={"en"}
-        onDateChange={this.sateDate}
-        /> */}
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           onConfirm={this._handleDatePicked}
@@ -125,11 +125,6 @@ class HomeDetails extends Component
         />
         </View>
         const message = <Text></Text>
-        // const {Actions, hours,minute} =  TimePickerAndroid.open({
-        //     hour:13,
-        //     minute:27,
-        //     is24Hour:false
-        // });
         const bookedDateAndTime = 
         <Card style={{margin:15}}>
         <CardItem>
@@ -140,7 +135,7 @@ class HomeDetails extends Component
         </Body>
         </CardItem>
         </Card>
-        const nextBtn = <Button style={{marginBottom:10}} transparent danger onPress={() => this.props.navigation.navigate('PlaceSelect')} >
+        const nextBtn = <Button style={{marginBottom:10}} transparent danger onPress={this.goToNextPage} >
         <Text style={{fontSize: 20, color: 'red', marginRight:15}}>Next</Text>
     </Button>
         return(
@@ -157,10 +152,6 @@ class HomeDetails extends Component
                         </Title>
                     </Body>
                 </Header>
-               {/* <ImageSlider style={{flex:1}}  
-               images= {Trucks} 
-               onPositionChanged= {this.handleImages}
-               /> */}
                <Swiper
                    style={{flex:1}}
                    currentSelectIndex={0}
@@ -185,11 +176,7 @@ class HomeDetails extends Component
                             </View>
                         </Right>    
                    </View>
-                   {/* <View>
-                       <Text style={{fontSize:21.56}}>{this.state.currentIndex}</Text>
-                   </View> */}
                    {this.state.garyo===true ? DatePickers : message }
-                   {/* {this.state.laterSwitch ? bookedDateAndTime : message} */}
                     {this.state.dateTimeSelected && this.state.laterSwitch ? bookedDateAndTime : message}
                 </Content>
                 <Footer style={{backgroundColor:'#ecf0f1'}}>

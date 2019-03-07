@@ -1,6 +1,5 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet,AsyncStorage} from 'react-native';
-import signInComponent from './Components/Login/Login';
+import {AsyncStorage} from 'react-native';
 import FirstScreen from './Components/FirstScreen';
 import SelectPage from './Components/selectPage';
 import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'react-navigation';
@@ -8,6 +7,7 @@ import Home from './Components/Drawer/Home';
 import LoginDetails from './Components/Login/LoginDetails';
 import LocationSummary from './Components/Summary';
 import MoreDetails from './Components/moreDetails';
+import placeOrder from './Components/placeOrder';
 const AppStack =  createStackNavigator({
     Home : {
         screen: Home,
@@ -17,9 +17,10 @@ const AppStack =  createStackNavigator({
     },
     PlaceSelect : SelectPage,
     summary: LocationSummary,
-    Details: MoreDetails
+    Details: MoreDetails,
+    placeOrder: placeOrder,
     },{
-        initialRouteName:'PlaceSelect'
+        initialRouteName:'Home'
     }
 );
 const AuthStack = createStackNavigator({
