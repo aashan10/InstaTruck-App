@@ -6,14 +6,16 @@ import {withNavigation} from 'react-navigation';
 class Logout extends Component
 {
     logout = async() => {
-       await  AsyncStorage.clear();
+       await  AsyncStorage.removeItem('userToken');
         this.props.navigation.navigate('Auth');
     }
     render()
     {
         return(
-            <View style={{flexDirection:'row',alignContent:'center',alignItems:'center'}}>
-                <Button onPress={this.logout}><Text>Logout</Text></Button>
+            <View style={{alignContent:'center',alignItems:'center'}}>
+                <Button full style={{margin:50}} onPress={this.logout}>
+                <Text style={{color:'#fff', fontSize:20}}>Logout</Text>
+                </Button>
             </View>
         );
     }

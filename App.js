@@ -8,6 +8,7 @@ import LoginDetails from './Components/Login/LoginDetails';
 import LocationSummary from './Components/Summary';
 import MoreDetails from './Components/moreDetails';
 import placeOrder from './Components/placeOrder';
+import { CheckBox } from 'native-base';
 const AppStack =  createStackNavigator({
     Home : {
         screen: Home,
@@ -28,14 +29,29 @@ const AuthStack = createStackNavigator({
     
 
 });
-
-let FirstTimeLunch = false;
-let checkFirstTimeLunch = async () =>{
-    const checkFirst = await AsyncStorage.getItem('firstTime');
-    alert(checkFirst);
-    checkFirst ? FirstTimeLunch = true : FirstTimeLunch = false;
+let FirstTimeLunch ;
+let isLoggedIn ;
+let checkData = async() => {
+    
+    await AsyncStorage.getItem('alreadyLaunched').then(value => {
+        console.log(value);
+         if(value === null){
+             FirstTimeLunch = true;
+             AsyncStorage.setItem('alreadyLaunched', "true"); 
+         } else {
+             FirstTimeLunch = false;
+             AsyncStorage.removeItem('alreadyLaunched');
+         }
+     });
+     await AsyncStorage.getItem('userToken').then(value => {
+         if(value == 'abc')
+         {
+             isLoggedIn = true;
+         }
+         isLoggedIn = false;
+     });
 }
-const AppContainer = createAppContainer(
+const AppContainer =  createAppContainer(
     createSwitchNavigator(
     {
         firstScreen : FirstScreen,
@@ -43,13 +59,16 @@ const AppContainer = createAppContainer(
         App:AppStack
        
     },
-    FirstTimeLunch ? { initialRouteName: 'firstScreen'} : { initialRouteName:'App'}
+        FirstTimeLunch ?  {initialRouteName:'firstScreen'} : {initialRouteName:'Auth'}
     )
 );
 export default class App extends Component
-{
-  
-    
+{ 
+    constructor(props){
+        super(props);
+        AsyncStorage.clear();
+        checkData();
+    }
     render() {
         return (           
         <AppContainer />  

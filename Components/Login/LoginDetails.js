@@ -1,6 +1,7 @@
 import React,  {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet,AsyncStorage} from 'react-native';
+import {View, Text, Dimensions, StyleSheet,AsyncStorage} from 'react-native';
 import {withNavigation} from 'react-navigation';
+import { NetInfo } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Thumbnail } from 'native-base';
 class LoginDetails extends Component
 {
@@ -11,19 +12,44 @@ class LoginDetails extends Component
         this.state = {
             username: '',
             password: '',
-            errorMessage: ''
+            errorMessage: '',
+            isConnected: true,
+        }
+    }
+    componentDidMount() {
+        NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    }
+
+    componentWillUnmount() {
+
+        NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    }
+    handleConnectivityChange = (isConnected) => {
+        if (isConnected) {
+            this.setState({
+                isConnected
+            });
+        } else {
+            this.setState({
+                isConnected
+            });
         }
     }
 
      getUserData = async() => {
         let username = this.state.username;
         let password = this.state.password;
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
         if(username === '' && password === '')
         {
             alert('Please Enter Your Username and Password');
+        } else if(reg.test(username) === false){
+            this.setState({
+                errorMessage: 'Please Enter a Valid Email Address'
+            });
+            return;
         }
         else{    
-            await AsyncStorage.setItem('userToken' , 'abc');
             let url = 'https://epapi.pvdemo.com/login';
             fetch(url,{
                 method: 'POST',
@@ -32,16 +58,26 @@ class LoginDetails extends Component
                      'Content-Type': 'application/json',
                     },
                  body: JSON.stringify({
-                    username: username,
+                    email: username,
                     password: password,
                  }),
             })
             .then((response)=> response.json() )
             .then((responseJson) => {
-                alert(JSON.stringify(responseJson));
+                if(responseJson.message == 'Request successfully processed'){
+                    AsyncStorage.setItem('userToken' , 'abc');
+                    this.props.navigation.navigate('App');
+                } else if(responseJson.message == 'Invalid credentials'){
+                    this.setState({
+                        errorMessage: 'Invalid credentials'
+                    });
+                    return;
+                } else {
+                    console.log(responseJson);
+                    alert('Something went worng!! Please contact Suport!!');
+                }
             }).catch((error)=>console.error(error));
-            // return;
-            this.props.navigation.navigate('App');
+            return;
         }
     }
     static navigationOptions = {
@@ -53,9 +89,18 @@ class LoginDetails extends Component
       };
     render()
     {
+        const Error = <View style={{flex:1, margin:10}}>
+                        <Item error>
+                            <Text style={{fontSize:20,color:'red'}}>{this.state.errorMessage}</Text>
+                        </Item> 
+                    </View>
+        const noConnection = <View style={styles.offlineContainer}>
+                                <Text style={styles.offlineText}>No Internet Connection</Text>
+                            </View>            
         return(
             <Container>
                 <Content>
+                {this.state.isConnected != true ? noConnection : <Text></Text>}
                 <View style={styles.logo}>
                 <Thumbnail large source= {require('../images/logo.png')} />
                 <Text style={{margin:10,fontWeight:'bold', fontSize: 30}}>InstaTruck</Text>
@@ -63,7 +108,7 @@ class LoginDetails extends Component
                 <View style={styles.container}>
                     <Form style={{margin:10}}>
                         <Item floatingLabel>
-                            <Label>Username</Label>
+                            <Label>Email</Label>
                             <Input
                             onChangeText={(text) => this.setState({username:text})}
                             returnKeyType="next"
@@ -77,6 +122,7 @@ class LoginDetails extends Component
                             onChangeText={(text) => this.setState({password:text})} />
                         </Item>
                     </Form>
+                    {this.state.errorMessage != '' ? Error : <Text></Text>}
                 </View>
                 <Button  block style={{margin:10}} onPress={this.getUserData}>
                         <Text style={{color: '#fff', fontSize:20}}>Login</Text>
@@ -86,7 +132,7 @@ class LoginDetails extends Component
         );    
     }
 }
-
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container:{
         flex: 1,
@@ -94,10 +140,24 @@ const styles = StyleSheet.create({
     },
     logo:{
         flex: 1,
-        marginTop: 20,
+        marginTop: 30,
+        padding:10,
         alignContent: 'center',
         alignItems: 'center',
-    }
+    },
+    offlineContainer: {
+        backgroundColor: '#b52424',
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // flexDirection: 'row',
+        width,
+        position: 'absolute',
+        // top: 30
+      },
+      offlineText: { 
+        color: '#fff'
+      }
 })
 
 export default withNavigation(LoginDetails);

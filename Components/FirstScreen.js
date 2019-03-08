@@ -17,7 +17,7 @@ class FirstScreen extends Component
 
     _mySync = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        userToken ? this.setState({loggedIn:true}) : this.setState({loggedIn:false})
+        userToken === 'abc' ? this.setState({loggedIn:true}) : this.setState({loggedIn:false})
     }
     static navigationOptions = { title:"Welcome", header: null };
     render(){

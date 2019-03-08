@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text, Switch,Slider, CheckBox, StyleSheet, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Left, Right} from 'native-base';
+import {Container, Content, Card, CardItem, Left, Right, Button, Footer, FooterTab} from 'native-base';
 
 class placeOrder extends Component
 {     
+    placeOrder = () =>{
+        alert('Your Order has been Placed!!');
+        this.props.navigation.navigate('Home');
+    }
     render()
     {
         let comment =this.props.navigation.getParam('comment','empty');
@@ -24,14 +28,14 @@ class placeOrder extends Component
          console.log(rubberizedPlatform);
          let goodsDetails =this.props.navigation.state.params.goodsDetails;
          console.log(goodsDetails);
-         let imageIndexs = this.props.navigation.state.params.imageIndex;
-         if(imageIndexs == 0){
-             imgPath = require('./images/tataAce.jpg');
-         } else if(imageIndexs == 1){
-             imgPath = require('./images/tata407.jpg');
-         } else{
-             imgPath= require('./images/canter.jpg');
-         }
+        //  let imageIndexs = this.props.navigation.state.params.imageIndex;
+        //  if(imageIndexs == 0){
+        //      imgPath = require('./images/tataAce.jpg');
+        //  } else if(imageIndexs == 1){
+        //      imgPath = require('./images/tata407.jpg');
+        //  } else{
+        //      imgPath= require('./images/canter.jpg');
+        //  }
         return(
             <Container>
                     <Content>
@@ -99,11 +103,24 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>{rubberizedPlatform? <Text>True</Text> : <Text>False</Text>}</Text>
                                 </Right>
                                 </CardItem>
+                                <CardItem cardBody style={{margin:10}}>
+                                    <Text style={styles.dataStyle}>Selected Vechile:</Text>
+                                </CardItem>
                                 <CardItem cardBody style={{margin:10, padding:5}} bordered>
-                                <Image  source={imgPath} style={{ height : 200, width:null, flex : 1 }} />
+                                    <Image  source={require('./images/tata407.jpg')} style={{ height : 200, width:null, flex : 1 }} />
                             </CardItem>
                         </Card>
                     </Content>
+                    <Footer>
+                        <FooterTab style={{backgroundColor:'#2c3e50'}}>
+                            <Button onPress={()=> this.props.navigation.goBack()}>
+                                <Text style={{color:'#fff', fontSize:15}}>Previous</Text>
+                            </Button>
+                            <Button onPress={this.placeOrder}>
+                                <Text style={{color:'#fff', fontSize:15}}>Place Order</Text>
+                            </Button>
+                        </FooterTab>
+                    </Footer>
             </Container>
         );
     }
