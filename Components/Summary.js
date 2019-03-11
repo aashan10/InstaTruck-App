@@ -17,19 +17,8 @@ class LocationSummary extends Component
       };
     render()
     {
-        const pickup = this.props.navigation.getParam('pickup','empty');
-        console.log(pickup);
-        const dropOff = this.props.navigation.getParam('dropOff','empty');
-        console.log(dropOff);
-        let date = this.props.navigation.getParam('date','empty');
-        console.log(date);
-        let time = this.props.navigation.getParam('time','empty');
-        console.log(time);
-        let vehicleType = this.props.navigation.state.params.vechileType;
-        console.log(vehicleType);
-        let imageIndex = this.props.navigation.state.params.imageIndex;
         return(
-            <Container>
+            // <Container>
                
                 <Content>
                     <Card style={{ margin:40,marginTop:20}}>
@@ -39,7 +28,7 @@ class LocationSummary extends Component
                             </Badge>
                             <View style={{alignContent:'center', alignItems:'center'}}>
                             <Text style={{color:'#000', fontSize:15, marginLeft: 78}}>
-                                {pickup.country}                            
+                                {pickUpLocation.country}                            
                             </Text>
                             </View>
                         </CardItem>
@@ -52,30 +41,12 @@ class LocationSummary extends Component
                             </Badge>
                             <View style={{alignContent:'center', alignItems:'center'}}>
                             <Text style={{color:'#000', fontSize:15, marginLeft:78}}>
-                                {dropOff.country}                            
+                                {dropOffLocation.country}                            
                             </Text>
                             </View>
                         </CardItem>
                     </Card>
                 </Content>
-                <Footer>
-                    <FooterTab>
-                        <Button onPress={() => this.props.navigation.goBack()}>
-                            <Text style={{color:'#fff'}}> Prev</Text>
-                        </Button>
-                        <Button onPress={() => this.props.navigation.navigate('Details',{
-                             date:date,
-                             time:time,
-                             vechileType:vehicleType,
-                             pickup: pickup,
-                             dropOff:dropOff,
-                             imageIndex:imageIndex
-                        })}>
-                            <Text style={{color:'#fff'}}>Next</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
-          </Container>
         );
     }
 }

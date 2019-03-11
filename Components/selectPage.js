@@ -60,7 +60,7 @@ class SelectPage extends Component
           }else{
               console.log(this.state.pickUpLocation);
               console.log(this.state.dropOffLocation);
-            this.props.navigation.navigate('summary', {
+            this.props.navigation.navigate('Details', {
                 pickup: this.state.pickUpLocation,
                 dropOff: this.state.dropOffLocation,
                 date: date,
@@ -69,7 +69,8 @@ class SelectPage extends Component
                 imageIndex:imageIndex,
                 
 
-            })
+            });
+            // this.props.navigation.navigate('Details');
 
           }
       }

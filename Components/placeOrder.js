@@ -1,12 +1,32 @@
 import React, {Component} from 'react';
 import {View, Text, Switch,Slider, CheckBox, StyleSheet, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Left, Right, Button, Footer, FooterTab} from 'native-base';
+import {Container, Content, Card, CardItem, Left, Right, Button, Footer, FooterTab, Body} from 'native-base';
 
 class placeOrder extends Component
 {     
+
+    constructor(props){
+        super(props);
+        this.state = {
+            date:'',
+            time:''
+        };
+    }
     placeOrder = () =>{
         alert('Your Order has been Placed!!');
         this.props.navigation.navigate('Home');
+    }
+    componentDidMount() {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    this.setState({
+        date: date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
+    });
+    console.log(this.state.date);
     }
     render()
     {
@@ -28,14 +48,15 @@ class placeOrder extends Component
          console.log(rubberizedPlatform);
          let goodsDetails =this.props.navigation.state.params.goodsDetails;
          console.log(goodsDetails);
-        //  let imageIndexs = this.props.navigation.state.params.imageIndex;
-        //  if(imageIndexs == 0){
-        //      imgPath = require('./images/tataAce.jpg');
-        //  } else if(imageIndexs == 1){
-        //      imgPath = require('./images/tata407.jpg');
-        //  } else{
-        //      imgPath= require('./images/canter.jpg');
-        //  }
+         let imageIndexs = this.props.navigation.state.params.imageIndex;
+         console.log(imageIndexs);
+         if(imageIndexs == 0){
+             imgPath = require('./images/tataAce.jpg');
+         } else if(imageIndexs == 1){
+             imgPath = require('./images/tata407.jpg');
+         } else{
+             imgPath= require('./images/canter.jpg');
+         }
         return(
             <Container>
                     <Content>
@@ -94,7 +115,12 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>{closedType}</Text>
                                 </Right>
                                 </CardItem>
-
+                                <CardItem cardBody style={{margin:10,padding:7}}>
+                                    <Left><Text>Goods Details</Text></Left>
+                                    <Body>
+                                       <Text>{goodsDetails}||</Text> 
+                                    </Body>
+                                </CardItem>
                                 <CardItem cardBody style={{margin:10, padding:5}} bordered>
                                 <Left>
                                     <Text style={styles.dataStyle}>Rubberied Platofrm:</Text>
@@ -114,7 +140,7 @@ class placeOrder extends Component
                     <Footer>
                         <FooterTab style={{backgroundColor:'#2c3e50'}}>
                             <Button onPress={()=> this.props.navigation.goBack()}>
-                                <Text style={{color:'#fff', fontSize:15}}>Previous</Text>
+                                <Text style={{color:'#fff', fontSize:15}}>Cancel</Text>
                             </Button>
                             <Button onPress={this.placeOrder}>
                                 <Text style={{color:'#fff', fontSize:15}}>Place Order</Text>

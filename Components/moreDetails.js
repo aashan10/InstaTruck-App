@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Switch,Slider, Alert} from 'react-native';
-import {Container, Content, Icon, Right, List, ListItem, Left, Body, Input, Button, Item, Label} from 'native-base';
+import {Container, Content, Icon, Right, List, ListItem, Left, Badge, Body, Input, Card,CardItem, Button, Item, Label, Header} from 'native-base';
 import {withNavigation} from 'react-navigation';
 import MultiSelect from 'react-native-multiple-select';
  class MoreDetails extends Component
@@ -118,7 +118,11 @@ import MultiSelect from 'react-native-multiple-select';
               return;
           }
           const pickUpLocation = this.props.navigation.getParam('pickup','empty');
+          console.log('------------Ramailo----------------');
+          console.log(pickUpLocation);
+          this.setState({pickUpLocation:pickUpLocation});
           const dropOffLocation = this.props.navigation.getParam('dropOff','empty');
+          this.setState({dropOffLocation:dropOffLocation});
           const date = this.props.navigation.getParam('date','empty');
           const time = this.props.navigation.getParam('time','empty');    
           const vehicleType = this.props.navigation.state.params.vechileType;
@@ -139,6 +143,7 @@ import MultiSelect from 'react-native-multiple-select';
                               this.setState({
                                   labourConfirm: true
                               });
+                              if(this.state.labourConfirm){
                               this.props.navigation.navigate('placeOrder',{
                                   comment: this.state.comment,
                                   pickUp: pickUpLocation ,
@@ -150,7 +155,8 @@ import MultiSelect from 'react-native-multiple-select';
                                   rubberizedPlatform:this.state.rubberizedPlatform,
                                   goodsDetails:this.state.selectedItems,
                                   imageIndex:imageIndex,
-                              })
+                              });
+                            }
                           }
                       },
                   ]
@@ -172,11 +178,40 @@ import MultiSelect from 'react-native-multiple-select';
 
     render()
     {
+        // const LocationSummary =
+        //                     <View>
+                             
+        //                         </View>
         const RedText = <Text style={{color:'#EA2027'}}>{this.state.VehicleType}</Text>
         const GreenText = <Text style={{color:'#009432'}}>{this.state.VehicleType}</Text>
         return(
             <Container>
+                <Header/>
                 <Content>
+                    <Card style={{ margin:40,marginTop:20}}>
+                            <CardItem>
+                                 <Badge >
+                                        <Text style={{color:'#fff', alignContent:'center',alignItems:'center'}}>Pickup</Text>
+                                 </Badge>
+                                <View style={{alignContent:'center', alignItems:'center'}}>
+                                <Text style={{color:'#000', fontSize:15, marginLeft: 78}}>
+                                            Nepalskdkdsk                            
+                                </Text>
+                             </View>
+                         </CardItem>
+                    </Card>
+                                <Card style={{margin:40,marginTop:20}}>
+                                    <CardItem>
+                                        <Badge success >
+                                            <Text style={{color:'#fff'}}>DropOff</Text>
+                                        </Badge>
+                                        <View style={{alignContent:'center', alignItems:'center'}}>
+                                        <Text style={{color:'#000', fontSize:15, marginLeft:78}}>
+                                           Nepaldfjkjdffdjk                          
+                                        </Text>
+                                        </View>
+                                    </CardItem>
+                                </Card>
                     <List style={{marginTop:20}}>
                     <ListItem icon>
                     <Left>

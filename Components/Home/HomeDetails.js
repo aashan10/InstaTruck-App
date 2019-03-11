@@ -1,10 +1,10 @@
 import React ,{Component} from 'react';
 import {View, Text, StyleSheet, Platform, Image, Switch, Dimensions, TimePickerAndroid, AsyncStorage} from 'react-native';
-import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, DatePicker, Card, CardItem } from 'native-base';
+import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, Card, CardItem, Drawer } from 'native-base';
 import {withNavigation, createDrawerNavigator,createAppContainer} from 'react-navigation';
 import ImageSlider from 'react-native-image-slider';
 import Swiper from 'react-native-custom-swiper';
-import Logout from '../logout';
+import SideBar from '../Drawer/sideBar';
 import DateTimePicker from 'react-native-modal-datetime-picker';
  
 class HomeDetails extends Component
@@ -113,6 +113,12 @@ class HomeDetails extends Component
             imageIndex:this.state.currentIndex
             });
        }     
+       closeDrawer = () => {
+        this.drawer._root.close()
+      };
+      openDrawer = () => {
+        this.drawer._root.open()
+      };
     static navigationOptions = {  header: null };
     render()
     {
@@ -140,10 +146,14 @@ class HomeDetails extends Component
         <Text style={{fontSize: 20, color: 'red', marginRight:15}}>Next</Text>
     </Button>
         return(
+            <Drawer
+            ref={(ref) => { this.drawer = ref; }}
+            content={<SideBar navigator={this.navigator} />}
+            onClose={() => this.closeDrawer()} >    
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress= { () => this.props.navigation.openDrawer()}>
+                        <Button transparent onPress= { () => this.openDrawer()}>
                             <Icon name="menu"/>
                         </Button>
                     </Left> 
@@ -187,6 +197,7 @@ class HomeDetails extends Component
                     </Right>
                 </Footer>
             </Container>
+            </Drawer>
         );
     }
 }
