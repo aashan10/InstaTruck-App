@@ -11,15 +11,14 @@ import Logout from './Components/logout';
 import HomeDetails from './Components/Home/HomeDetails';
 import {Root} from 'native-base';
 const AppStack =  createStackNavigator({
-    Home : HomeDetails,
+    Home : {screen:HomeDetails,header:'none'},
     logout: Logout,
     PlaceSelect : SelectPage,
     summary: LocationSummary,
     Details: MoreDetails,
     placeOrder: placeOrder,
     },{
-        initialRouteName:'Details',
-        headerMode:'none'
+        initialRouteName:'Home',
     }
 );
 const AuthStack = createStackNavigator({
@@ -27,7 +26,7 @@ const AuthStack = createStackNavigator({
     
 
 });
-let FirstTimeLunch = true ;
+let FirstTimeLunch = false ;
 let isLoggedIn = false ;
 let checkData = async() => {
     await AsyncStorage.getItem('alreadyLaunched').then(value => {

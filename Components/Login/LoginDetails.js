@@ -15,6 +15,12 @@ class LoginDetails extends Component
             errorMessage: '',
             isConnected: true,
         }
+
+        this._mySync();
+    }
+    _mySync = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        userToken === 'abc' ? this.props.navigation.navigate('Home') : null;
     }
     componentDidMount() {
         NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);

@@ -17,6 +17,7 @@ class HomeDetails extends Component
             falseSwitchIsOn: false,
             garyo: false,
             laterSwitch:false,
+            returnedlaterSwitch: false,
             isDateTimePickerVisible:false,
             timePicker:false,
             dateTimeSelected:false,
@@ -41,6 +42,9 @@ class HomeDetails extends Component
                  isDateTimePickerVisible:true,
                  laterSwitch:true
             });
+            console.log(this.state.laterSwitch);
+            console.log(this.state.returnedlaterSwitch);
+
             return;
         }
         if(this.state.laterSwitch!=false){
@@ -49,6 +53,8 @@ class HomeDetails extends Component
                 garyo:false,
                 laterSwitch:false
             });
+            console.log(this.state.laterSwitch);
+            console.log(this.state.returnedlaterSwitch);
         }
                
     }
@@ -85,7 +91,7 @@ class HomeDetails extends Component
         )
     }
     
-        _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+        _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false, returnedlaterSwitch:false, });
 
             _handleDatePicked = (date) => {
                 var hours = date.getHours();
@@ -106,6 +112,17 @@ class HomeDetails extends Component
                 this._hideDateTimePicker();
             };
        goToNextPage = () => {
+               if (this.state.laterSwitch === false || this.state.returnedlaterSwitch === true) {
+                   console.log('BookNOW!!!-------');
+                   async () => {
+                       await AsyncStorage.setItem('bookNow', 'true');
+                       await AsyncStorage.setItem('imageIndex', this.state.currentIndex);
+                   }
+            
+               }
+               async () => {
+                   await AsyncStorage.setItem('bookNow','false');
+               }
            this.props.navigation.navigate('PlaceSelect',{
             date:this.state.bookingDate,
             time:this.state.bookingTime,
@@ -149,7 +166,8 @@ class HomeDetails extends Component
             <Drawer
             ref={(ref) => { this.drawer = ref; }}
             content={<SideBar navigator={this.navigator} />}
-            onClose={() => this.closeDrawer()} >    
+            onClose={() => this.closeDrawer()} 
+            openDrawerOffset= {0.5}>    
             <Container>
                 <Header>
                     <Left>

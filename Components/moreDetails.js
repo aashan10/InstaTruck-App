@@ -178,15 +178,13 @@ import MultiSelect from 'react-native-multiple-select';
 
     render()
     {
-        // const LocationSummary =
-        //                     <View>
-                             
-        //                         </View>
+        const pickUpLocation = this.props.navigation.getParam('pickup','empty');
+        const dropOffLocation = this.props.navigation.getParam('dropOff','empty');
         const RedText = <Text style={{color:'#EA2027'}}>{this.state.VehicleType}</Text>
         const GreenText = <Text style={{color:'#009432'}}>{this.state.VehicleType}</Text>
         return(
             <Container>
-                <Header/>
+                
                 <Content>
                     <Card style={{ margin:40,marginTop:20}}>
                             <CardItem>
@@ -195,7 +193,7 @@ import MultiSelect from 'react-native-multiple-select';
                                  </Badge>
                                 <View style={{alignContent:'center', alignItems:'center'}}>
                                 <Text style={{color:'#000', fontSize:15, marginLeft: 78}}>
-                                            Nepalskdkdsk                            
+                                            {pickUpLocation.country}                            
                                 </Text>
                              </View>
                          </CardItem>
@@ -207,7 +205,7 @@ import MultiSelect from 'react-native-multiple-select';
                                         </Badge>
                                         <View style={{alignContent:'center', alignItems:'center'}}>
                                         <Text style={{color:'#000', fontSize:15, marginLeft:78}}>
-                                           Nepaldfjkjdffdjk                          
+                                           {dropOffLocation.country}                          
                                         </Text>
                                         </View>
                                     </CardItem>

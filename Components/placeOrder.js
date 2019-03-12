@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Switch,Slider, CheckBox, StyleSheet, Image} from 'react-native';
+import {View, Text, Switch,Slider, CheckBox, StyleSheet, Image, AsyncStorage} from 'react-native';
 import {Container, Content, Card, CardItem, Left, Right, Button, Footer, FooterTab, Body} from 'native-base';
 
 class placeOrder extends Component
@@ -9,24 +9,38 @@ class placeOrder extends Component
         super(props);
         this.state = {
             date:'',
-            time:''
+            time:'',
+            currentBook :'',
+            imageIndex:'',
         };
+        this.getUtakoValue();
+    }
+    getUtakoValue =  async() => {
+        let currentBook = await AsyncStorage.getItem('bookNow');
+        if(currentBook === 'true'){
+            this.setState({currentBook:currentBook});
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var date =  new Date;
+            let day = days[date.getDay()];
+            let months = ['Jan', 'Feb', 'Mar', 'Apr','May','Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+            let month = months[date.getMonth()];
+            combinedDate = day + ' ' + month + ' ' +  date.getDate() + ' ' + date.getFullYear();
+            this.setState({date:combinedDate});
+            let hours = date.getHours();
+            var minutes = date.getMinutes();
+            let ampm = hours>=12 ? 'pm' : 'am';
+            hours = hours %12;
+            hours = hours ? hours:12;
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            let time = hours + ':' + minutes + ' ' + ampm;
+            this.setState({time:time}); 
+        }
+        let imageIndex = await AsyncStorage.getItem('imageIndex');
+        this.setState({imageIndex:imageIndex});
     }
     placeOrder = () =>{
         alert('Your Order has been Placed!!');
         this.props.navigation.navigate('Home');
-    }
-    componentDidMount() {
-    var date = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
-    var year = new Date().getFullYear(); //Current Year
-    var hours = new Date().getHours(); //Current Hours
-    var min = new Date().getMinutes(); //Current Minutes
-    var sec = new Date().getSeconds(); //Current Seconds
-    this.setState({
-        date: date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
-    });
-    console.log(this.state.date);
     }
     render()
     {
@@ -37,8 +51,10 @@ class placeOrder extends Component
          let dropOff =this.props.navigation.getParam('dropOff','empty');
          console.log(dropOff);
          let date =this.props.navigation.getParam('date','empty');
+        //  this.setState({date:date});
          console.log(date);
          let time =this.props.navigation.getParam('time','empty');
+        //  this.setState({time:time});
          console.log(time);
          let vechileType =this.props.navigation.state.params.vechileType;
          console.log(vechileType);
@@ -50,12 +66,15 @@ class placeOrder extends Component
          console.log(goodsDetails);
          let imageIndexs = this.props.navigation.state.params.imageIndex;
          console.log(imageIndexs);
-         if(imageIndexs == 0){
+         if(this.state,imageIndexs == 0){
              imgPath = require('./images/tataAce.jpg');
-         } else if(imageIndexs == 1){
+             console.log(imgPath);
+         } else if(this.state,imageIndexs == 1){
              imgPath = require('./images/tata407.jpg');
+             console.log(imgPath);
          } else{
              imgPath= require('./images/canter.jpg');
+             console.log(imgPath);
          }
         return(
             <Container>
@@ -85,7 +104,7 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>Date:</Text>
                                 </Left>
                                 <Right>
-                                    <Text style={styles.dataStyle}>{date}</Text>
+                                    <Text style={styles.dataStyle}>{this.state.date=== '' ? date : this.state.date}</Text>
                                 </Right>
                                 </CardItem>
                                 
@@ -94,7 +113,7 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>Time:</Text>
                                 </Left>
                                 <Right>
-                                    <Text style={styles.dataStyle}>{time}</Text>
+                                    <Text style={styles.dataStyle}>{this.state.time === '' ? time : this.state.time}</Text>
                                 </Right>
                                 </CardItem>
                                 
@@ -116,9 +135,9 @@ class placeOrder extends Component
                                 </Right>
                                 </CardItem>
                                 <CardItem cardBody style={{margin:10,padding:7}}>
-                                    <Left><Text>Goods Details</Text></Left>
+                                    <Left><Text style={styles.dataStyle}>Goods Details</Text></Left>
                                     <Body>
-                                       <Text>{goodsDetails}||</Text> 
+                                       <Text style={styles.dataStyle}>{goodsDetails},</Text> 
                                     </Body>
                                 </CardItem>
                                 <CardItem cardBody style={{margin:10, padding:5}} bordered>
@@ -133,7 +152,7 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>Selected Vechile:</Text>
                                 </CardItem>
                                 <CardItem cardBody style={{margin:10, padding:5}} bordered>
-                                    <Image  source={require('./images/tata407.jpg')} style={{ height : 200, width:null, flex : 1 }} />
+                                    <Image  source={imgPath} style={{ height : 200, width:null, flex : 1 }} />
                             </CardItem>
                         </Card>
                     </Content>
