@@ -11,7 +11,7 @@ class HomeDetails extends Component
 {   
     constructor(props)
     {
-        super(props)
+        super(props);
         this.state = {
             trueSwitchIsOn: true,
             falseSwitchIsOn: false,
@@ -33,30 +33,30 @@ class HomeDetails extends Component
             bookingTime: '',
             vehicle: 'Tata Ace | Tata Super Ace',
           };
-    }    
+        }    
     kamGar = (value) => {
-        if(!this.state.laterSwitch){
+        if (!this.state.laterSwitch) {
             this.setState({
-                 falseSwitchIsOn: value,
-                 garyo: true,
-                 isDateTimePickerVisible:true,
-                 laterSwitch:true
+                falseSwitchIsOn: value,
+                garyo: true,
+                isDateTimePickerVisible: true,
+                laterSwitch: true
             });
             console.log(this.state.laterSwitch);
             console.log(this.state.returnedlaterSwitch);
 
             return;
         }
-        if(this.state.laterSwitch!=false){
+        if (this.state.laterSwitch != false) {
             this.setState({
-                falseSwitchIsOn:false,
-                garyo:false,
-                laterSwitch:false
+                falseSwitchIsOn: false,
+                garyo: false,
+                laterSwitch: false
             });
             console.log(this.state.laterSwitch);
             console.log(this.state.returnedlaterSwitch);
         }
-               
+
     }
     
     handleImages = (index) => {
@@ -111,23 +111,40 @@ class HomeDetails extends Component
                
                 this._hideDateTimePicker();
             };
-       goToNextPage = () => {
-               if (this.state.laterSwitch === false || this.state.returnedlaterSwitch === true) {
-                   console.log('BookNOW!!!-------');
-                   async () => {
-                       await AsyncStorage.setItem('bookNow', 'true');
-                       await AsyncStorage.setItem('imageIndex', this.state.currentIndex);
-                   }
-            
-               }
-               async () => {
-                   await AsyncStorage.setItem('bookNow','false');
-               }
-           this.props.navigation.navigate('PlaceSelect',{
-            date:this.state.bookingDate,
-            time:this.state.bookingTime,
-            vehicleType:this.state.vehicle,
-            imageIndex:this.state.currentIndex
+            goToNextPage = () => {
+                if (this.state.laterSwitch === false || this.state.returnedlaterSwitch === true) {
+                    console.log('BookNOW!!!-------');
+                         AsyncStorage.setItem('bookNow', 'true');                  
+                }
+                // AsyncStorage.setItem('bookNow','false');
+                
+            this.props.navigation.navigate('PlaceSelect',{
+             date:this.state.bookingDate,
+             time:this.state.bookingTime,
+             vehicleType:this.state.vehicle,
+             imageIndex:this.state.currentIndex
+             });
+ 
+            this.setState({
+                    trueSwitchIsOn: true,
+                    falseSwitchIsOn: false,
+                    garyo: false,
+                    laterSwitch:false,
+                    returnedlaterSwitch: false,
+                    isDateTimePickerVisible:false,
+                    timePicker:false,
+                    dateTimeSelected:false,
+                    choosenDate: new Date(),
+                    ImageId: 1,
+                    imgArray : [ 
+                        require('../images/tataAce.jpg'),
+                        require('../images/tata407.jpg'),
+                        require('../images/canter.jpg'), 
+                    ],
+                    currentIndex: 0,
+                    bookingDate: '',
+                    bookingTime: '',
+                    vehicle: 'Tata Ace | Tata Super Ace',
             });
        }     
        closeDrawer = () => {
@@ -167,7 +184,7 @@ class HomeDetails extends Component
             ref={(ref) => { this.drawer = ref; }}
             content={<SideBar navigator={this.navigator} />}
             onClose={() => this.closeDrawer()} 
-            openDrawerOffset= {0.5}>    
+            >    
             <Container>
                 <Header>
                     <Left>

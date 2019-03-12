@@ -1,38 +1,40 @@
 import React, {Component} from 'react';
-import {View, Image,Text,StyleSheet} from 'react-native';
+import {View, Image,Text,StyleSheet, AsyncStorage} from 'react-native';
 import LoginDetails from './LoginDetails';
 import {withNavigation} from 'react-navigation';
-import {Container, Header, Body, Title, Content, Button} from 'native-base';
+import {Container, Header, Body, Title, Content, Button, Spinner} from 'native-base';
 
-const signInComponent = () => {
-     navigationOptions = { title:"Welcome", header: null };
-            return (
-                <Container>
-                    <LoginDetails />
-                    
-                </Container>
-            );     
-}
-
-const styles = StyleSheet.create({
-    name:{
-        fontFamily:'Cochin',
-        fontSize: 30,
-        marginTop:200,
-        fontWeight:'bold',
-        color:'#16a085',
-        justifyContent:'center'
-    },
-    LoginContainer:{
-        marginTop:50,
-        alignItems:'center',
-        alignContent:'center',
-        flexGrow: 1
-    },
-    logo:{
-        height:200,
-        width:300,
-        position: 'absolute'
+class checkLogin extends Component
+{
+    constructor(props){
+        super(props);
+        this.isloggedIn();
+        
     }
-})
-export default signInComponent;
+    isloggedIn = async() => {
+        let token = await AsyncStorage.getItem('userToken');
+        if(token === 'abc'){
+            this.props.navigation.navigate('Home');
+            return;
+        }
+        this.props.navigation.navigate('signIn');
+    }
+    static navigationOptions = {header:null}
+    render(){
+        return(
+            <Container>
+                <Header>
+                    <Body style={{margin:10}}>
+                        <Text style={{color:'#fff', fontSize:20}}>Please Wait!!!</Text>
+                    </Body>
+                </Header>
+                <Content>
+                    <View style={{alignContent:'center', alignItems:'center'}}>
+                        <Spinner color='blue' />
+                    </View>
+                </Content>
+            </Container>
+        );
+    }
+}
+export default withNavigation(checkLogin);

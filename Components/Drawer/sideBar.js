@@ -37,7 +37,7 @@ class SideBar extends Component
 
                 <Image source={drawerImg} style={styles.drawerCover} />
                     <List>
-                        <ListItem  button noBorder onPress={() => this.props.navigation.navigate('Home') }>
+                        <ListItem  button noBorder onPress={() => this.props.navigation.navigate('profile') }>
                             <Text style={{fontSize:18}}>Profile</Text>
                         </ListItem>
                         <ListItem button noBorder onPress={()=> this.props.navigation.navigate('logout')}>

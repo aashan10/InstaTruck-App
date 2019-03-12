@@ -17,7 +17,9 @@ class placeOrder extends Component
     }
     getUtakoValue =  async() => {
         let currentBook = await AsyncStorage.getItem('bookNow');
-        if(currentBook === 'true'){
+        console.log('=============jdfjfjhdfjfdjh========00');
+        console.log(currentBook);
+        if(currentBook == 'true'){
             this.setState({currentBook:currentBook});
             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             var date =  new Date;
@@ -38,9 +40,12 @@ class placeOrder extends Component
         let imageIndex = await AsyncStorage.getItem('imageIndex');
         this.setState({imageIndex:imageIndex});
     }
-    placeOrder = () =>{
+    placeOrder = async() =>{
+        //Fetch Request here to save to database!!
         alert('Your Order has been Placed!!');
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Home',{
+            orderPlaced:'true'
+        });
     }
     render()
     {
@@ -51,10 +56,8 @@ class placeOrder extends Component
          let dropOff =this.props.navigation.getParam('dropOff','empty');
          console.log(dropOff);
          let date =this.props.navigation.getParam('date','empty');
-        //  this.setState({date:date});
          console.log(date);
          let time =this.props.navigation.getParam('time','empty');
-        //  this.setState({time:time});
          console.log(time);
          let vechileType =this.props.navigation.state.params.vechileType;
          console.log(vechileType);
@@ -64,12 +67,11 @@ class placeOrder extends Component
          console.log(rubberizedPlatform);
          let goodsDetails =this.props.navigation.state.params.goodsDetails;
          console.log(goodsDetails);
-         let imageIndexs = this.props.navigation.state.params.imageIndex;
-         console.log(imageIndexs);
-         if(this.state,imageIndexs == 0){
+         let imageIndex = this.props.navigation.state.params.imageIndex;
+         if(imageIndex == 0){
              imgPath = require('./images/tataAce.jpg');
              console.log(imgPath);
-         } else if(this.state,imageIndexs == 1){
+         } else if(imageIndex == 1){
              imgPath = require('./images/tata407.jpg');
              console.log(imgPath);
          } else{
@@ -104,7 +106,7 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>Date:</Text>
                                 </Left>
                                 <Right>
-                                    <Text style={styles.dataStyle}>{this.state.date=== '' ? date : this.state.date}</Text>
+                                    <Text style={styles.dataStyle}>{this.state.date === '' ? date : this.state.date}</Text>
                                 </Right>
                                 </CardItem>
                                 

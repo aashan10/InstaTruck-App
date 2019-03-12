@@ -15,6 +15,7 @@ class Logout extends Component
       openDrawer = () => {
         this.drawer._root.open()
       };
+      static navigationOptions = {  header: null };
     render()
     {
         return(

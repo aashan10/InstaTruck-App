@@ -70,7 +70,9 @@ class LoginDetails extends Component
             })
             .then((response)=> response.json() )
             .then((responseJson) => {
+                console.log(responseJson.data.access_token);
                 if(responseJson.message == 'Request successfully processed'){
+                    AsyncStorage.setItem('apiToken', responseJson.data.access_token )
                     AsyncStorage.setItem('userToken' , 'abc');
                     this.props.navigation.navigate('App');
                 } else if(responseJson.message == 'Invalid credentials'){
