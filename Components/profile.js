@@ -36,17 +36,16 @@ class Profile extends Component
     
             return(
                 <Card key={data.id}>
-                    <CardItem cardBody style={{margin:10}}>
-                        <Text style={{fontWeight:'bold'}}>First Name:- </Text> 
-                        <Text style={{fontSize:18}}>{data.first_name}</Text>
-                    </CardItem>
-                    <CardItem cardBody style={{margin:10}}>
-                        <Text style={{fontWeight:'bold'}}>Last Name:- </Text> 
-                        <Text style={{fontSize:18}}>{data.last_name}</Text>
+                    <CardItem header bordered style={{margin:10}}>
+                        <Text style={{fontSize:18, color:'#000', fontWeight:'bold'}}>{data.name}</Text>
                     </CardItem>
                     <CardItem cardBody style={{margin:10}}>
                         <Text style={{fontWeight:'bold'}}>Email:- </Text> 
                         <Text style={{fontSize:18}}>{data.email}</Text>
+                    </CardItem>
+                    <CardItem cardBody style={{margin:10}}>
+                        <Text style={{fontWeight:'bold'}}>Job Title:- </Text> 
+                        <Text style={{fontSize:18}}>{data.job_title}</Text>
                     </CardItem>
                 </Card>
             );

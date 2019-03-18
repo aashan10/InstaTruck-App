@@ -1,8 +1,8 @@
 import React,  {Component} from 'react';
-import {View, Text, Dimensions, StyleSheet,AsyncStorage} from 'react-native';
+import {View, Text, Dimensions, StyleSheet,AsyncStorage, Modal} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import { NetInfo } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Thumbnail } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Thumbnail, Spinner } from 'native-base';
 class LoginDetails extends Component
 {
   
@@ -14,8 +14,15 @@ class LoginDetails extends Component
             password: '',
             errorMessage: '',
             isConnected: true,
+            wait: false,
         }
-
+        NetInfo.isConnected.fetch().then(isConnected => {
+            if(isConnected){
+                console.log('Connected!!');
+            }else{
+                console.log('Offline');
+            }
+        })
         this._mySync();
     }
     _mySync = async () => {

@@ -150,6 +150,14 @@ class placeOrder extends Component
                                     <Text style={styles.dataStyle}>{rubberizedPlatform? <Text>True</Text> : <Text>False</Text>}</Text>
                                 </Right>
                                 </CardItem>
+                                <CardItem cardBody style={{margin:10, padding:5}} bordered>
+                                <Left>
+                                    <Text style={styles.dataStyle}>comment:</Text>
+                                </Left>
+                                <Right>
+                                    <Text style={styles.dataStyle}>{comment}</Text>
+                                </Right>
+                                </CardItem>
                                 <CardItem cardBody style={{margin:10}}>
                                     <Text style={styles.dataStyle}>Selected Vechile:</Text>
                                 </CardItem>

@@ -12,6 +12,7 @@ import HomeDetails from './Components/Home/HomeDetails';
 import Profile from './Components/profile';
 import checkLogin from './Components/Login/Login';
 import {Root} from 'native-base';
+
 const AppStack =  createStackNavigator({
     Home : {screen:HomeDetails,header:'none'},
     logout: {screen:Logout,header:'none'},
@@ -30,38 +31,40 @@ const AuthStack = createStackNavigator({
 const checkNav = createStackNavigator({
     checkLogin:{screen:checkLogin, header:'none'},
 });
-let FirstTimeLunch;
-let checkData = async() => {
-    await AsyncStorage.getItem('alreadyLaunched').then(value => {
-        console.log(value);
-         if(value === null){
-             FirstTimeLunch = true;
-             AsyncStorage.setItem('alreadyLaunched', "true"); 
-         } else {
-             FirstTimeLunch = false;
-             AsyncStorage.removeItem('alreadyLaunched');
-         }
-     });
-}
-const AppContainer =  createAppContainer(
-    createSwitchNavigator(
-    {
-        firstScreen : FirstScreen,
-        login:checkNav,
-        Auth:AuthStack,
-        App:AppStack
-       
-    },
-        FirstTimeLunch == true  ?  {initialRouteName:'firstScreen'} : {initialRouteName:'login'}
-    )
-);
 export default class App extends Component
 { 
-    constructor(props){
-        super(props);
-        checkData();
+    constructor(){
+        super();
+        this.state = {
+            FirstTimeLunch : 'false'
+        };
+        this.checkData();
     }
+        checkData = async() => {
+            await AsyncStorage.getItem('alreadyLaunched').then(value => {
+                console.log(value);
+                 if(value === null ){
+                     this.setState({FirstTimeLunch:'true'});
+                     AsyncStorage.setItem('alreadyLaunched', "true"); 
+                 } else {
+                     this.setState({FirstTimeLunch : 'false'});
+                 }
+             });    
+        }
     render() {
+        console.log(`return mathi ${this.state.FirstTimeLunch}`)
+        const AppContainer =  createAppContainer(
+            createSwitchNavigator(
+            {
+                firstScreen : FirstScreen,
+                login:checkNav,
+                Auth:AuthStack,
+                App:AppStack
+               
+            },
+                this.state.FirstTimeLunch === 'true' ?  {initialRouteName:'firstScreen'} : {initialRouteName:'login'}
+            )
+        );
         return (   
             <Root>
                  <AppContainer />  
