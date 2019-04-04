@@ -11,24 +11,38 @@ class Profile extends Component
         }
         this.getApiData();
     }
+    // getApiData = async() => {
+    //     let url = 'https://epapi.pvdemo.com/employees?fields=id,name,email,job_title,start_date';
+    //     let apiToken = await AsyncStorage.getItem('apiToken');
+    //     console.log(apiToken);
+    //     fetch(url,{
+    //         method:'GET',
+    //         headers:{
+    //             'Authorization' : `Bearer ${apiToken}`,
+    //         }
+    //     }).then((response) => response.json())
+    //       .then((responseJson) => {
+              
+    //           this.setState({
+    //               userData:responseJson.data
+    //           })
+    //           console.log(this.state.userData);
+    //       }).catch((error) => {
+    //           console.error(error);
+    //       })
+    // }
     getApiData = async() => {
-        let url = 'https://epapi.pvdemo.com/employees?fields=id,name,email,job_title,start_date';
-        let apiToken = await AsyncStorage.getItem('apiToken');
-        console.log(apiToken);
+        let url = 'http://192.168.1.68/api';
         fetch(url,{
-            method:'GET',
-            headers:{
-                'Authorization' : `Bearer ${apiToken}`,
-            }
+            method: 'GET'
         }).then((response) => response.json())
           .then((responseJson) => {
-              
+              console.log(responseJson);
               this.setState({
                   userData:responseJson.data
               })
-              console.log(this.state.userData);
           }).catch((error) => {
-              console.error(error);
+              console.log(error);
           })
     }
     renderUsers(){
@@ -44,8 +58,8 @@ class Profile extends Component
                         <Text style={{fontSize:18}}>{data.email}</Text>
                     </CardItem>
                     <CardItem cardBody style={{margin:10}}>
-                        <Text style={{fontWeight:'bold'}}>Job Title:- </Text> 
-                        <Text style={{fontSize:18}}>{data.job_title}</Text>
+                        <Text style={{fontWeight:'bold'}}>Role </Text> 
+                        <Text style={{fontSize:18}}>{data.role === 1 ? ' admin' : 'Customer'}</Text>
                     </CardItem>
                 </Card>
             );

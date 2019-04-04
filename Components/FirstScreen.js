@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import * as React from 'react';
-import {View, Text, StyleSheet,AsyncStorage} from 'react-native';
+import {View, Text, StyleSheet,AsyncStorage,ScrollView} from 'react-native';
 import ImageSlider from 'react-native-image-slider';
 import {Button, Badge} from 'native-base';
 class FirstScreen extends Component
@@ -23,14 +23,14 @@ class FirstScreen extends Component
     render(){
         return(
             <View style={{flex:1}}>
-                <View style={styles.slide}>
+                <ScrollView style={styles.slide} pagingEnabled={true} horizontal={true}>
                     <ImageSlider 
                         images = {[
                             require('./images/img.jpg'),
                             require('./images/img1.jpg'),
                             require('./images/img2.jpg'),
                         ]}/>
-                </View>
+                </ScrollView>
                 <View>
                     <Button full  onPress={this.state.loggedIn ? () => this.props.navigation.navigate('App') : () => this.props.navigation.navigate('Auth')}>
                         <Text style={{color:'#fff'}}>Next</Text>

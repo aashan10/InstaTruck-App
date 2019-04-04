@@ -63,7 +63,7 @@ class LoginDetails extends Component
             return;
         }
         else{    
-            let url = 'https://epapi.pvdemo.com/login';
+            let url = 'http://192.168.1.68/api';
             fetch(url,{
                 method: 'POST',
                 headers: {
@@ -77,12 +77,13 @@ class LoginDetails extends Component
             })
             .then((response)=> response.json() )
             .then((responseJson) => {
-                console.log(responseJson.data.access_token);
+                console.log(responseJson.message);
+                console.log(responseJson.token);
                 if(responseJson.message == 'Request successfully processed'){
-                    AsyncStorage.setItem('apiToken', responseJson.data.access_token )
+                    AsyncStorage.setItem('apiToken', responseJson.token )
                     AsyncStorage.setItem('userToken' , 'abc');
                     this.props.navigation.navigate('App');
-                } else if(responseJson.message == 'Invalid credentials'){
+                } else if(responseJson.message == 'Unauthorized'){
                     this.setState({
                         errorMessage: 'Invalid credentials'
                     });
