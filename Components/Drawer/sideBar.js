@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {View,Text, StyleSheet, Platform, Dimensions, Image} from 'react-native';
-import {Container, Content, List, ListItem, Left} from 'native-base';
+import {Text, StyleSheet, Platform, Dimensions, Image} from 'react-native';
+import {Container, Content, List, ListItem} from 'native-base';
 import {withNavigation} from 'react-navigation';
-import { DrawerActions } from 'react-navigation';
 
 
 const items = [

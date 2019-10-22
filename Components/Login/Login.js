@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {View, Image,Text,StyleSheet, AsyncStorage} from 'react-native';
-import LoginDetails from './LoginDetails';
+import {View, Text, AsyncStorage} from 'react-native';
 import {withNavigation} from 'react-navigation';
-import {Container, Header, Body, Title, Content, Button, Spinner} from 'native-base';
+import {Container, Header, Body, Content, Spinner} from 'native-base';
 
 class checkLogin extends Component
 {

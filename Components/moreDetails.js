@@ -118,7 +118,6 @@ import MultiSelect from 'react-native-multiple-select';
               return;
           }
           const pickUpLocation = this.props.navigation.getParam('pickup','empty');
-          console.log('------------Ramailo----------------');
           console.log(pickUpLocation);
           this.setState({pickUpLocation:pickUpLocation});
           const dropOffLocation = this.props.navigation.getParam('dropOff','empty');

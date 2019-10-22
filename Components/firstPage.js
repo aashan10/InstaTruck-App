@@ -2,7 +2,6 @@ import {Component} from 'react';
 import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { TextInput, Avatar, Button } from 'react-native-paper';
-import ImageSlider from 'react-native-image-slider';
 import App from '../App';
 import Login from './Login/Login';
 import { createStackNavigator, createAppContainer } from "react-navigation";

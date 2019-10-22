@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import {View, ScrollView, Text} from 'react-native';
-import {NavigationActions} from 'react-navigation';
+import {View, Text} from 'react-native';
 import styles from './sideMenu.style';
-import PropTypes from 'prop-types';
 
 export default class SideMenu extends Component
 {

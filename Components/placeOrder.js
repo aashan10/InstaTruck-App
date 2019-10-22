@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Switch,Slider, CheckBox, StyleSheet, Image, AsyncStorage} from 'react-native';
+import {Text, StyleSheet, Image, AsyncStorage} from 'react-native';
 import {Container, Content, Card, CardItem, Left, Right, Button, Footer, FooterTab, Body} from 'native-base';
 
 class placeOrder extends Component

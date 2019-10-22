@@ -1,8 +1,6 @@
 import React ,{Component} from 'react';
-import {View, Text, StyleSheet, Platform, Image, Switch, Dimensions, TimePickerAndroid, AsyncStorage} from 'react-native';
+import {View, Text, Image, Switch, Dimensions, AsyncStorage} from 'react-native';
 import { Container, Header, Left, Body, Icon, Title, Button, Content, Footer, Right, Card, CardItem, Drawer } from 'native-base';
-import {withNavigation, createDrawerNavigator,createAppContainer} from 'react-navigation';
-import ImageSlider from 'react-native-image-slider';
 import Swiper from 'react-native-custom-swiper';
 import SideBar from '../Drawer/sideBar';
 import DateTimePicker from 'react-native-modal-datetime-picker';

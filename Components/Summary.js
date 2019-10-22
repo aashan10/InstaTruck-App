@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Text, View} from 'react-native';
-import{Container, Content, Card, CardItem, Header, Left, Badge, Footer, FooterTab, Button, Right} from 'native-base';
+import{Content, Card, CardItem, Badge } from 'native-base';
 class LocationSummary extends Component
 {
     constructor(props)

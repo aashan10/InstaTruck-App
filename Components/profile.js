@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {View, Text, AsyncStorage, ScrollView} from 'react-native';
+import {Text, ScrollView} from 'react-native';
 import {Container, Content, Card, CardItem} from 'native-base';
 
 class Profile extends Component

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, ListView, StyleSheet} from 'react-native';
-import{ Content, Item, Input, Container, Icon, Right, Button, ListItem, List} from 'native-base';
+import{ Content, Item, Input, Container, Icon, Button } from 'native-base';
 import { withNavigation} from 'react-navigation';
 const places = [
     {country: 'Canada'},
